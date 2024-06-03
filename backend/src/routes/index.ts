@@ -16,7 +16,9 @@ export class IndexRoutes {
                         user: req.session.user
                     });
 
-                return res.status(200).send({ message: 'Hi, you are unauthorized to have access in this system!' });
+                return res.status(200).send({
+                    message: 'Hi, you are unauthorized to have access in this system!',
+                });
 
             });
 
