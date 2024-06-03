@@ -7,7 +7,6 @@ export class Account {
     email: string;
     phone: string;
     password?: string;
-    connected_account_id?: string;
     account_type: 'system_admin'
         | 'secretariat'
         | 'travel_agent'
@@ -25,7 +24,6 @@ export class Account {
         this.email = props?.email || null;
         this.phone = props?.phone || null;
         this.password = props?.password || null;
-        this.connected_account_id = props?.connected_account_id || null;
         this.account_type = props?.account_type || null;
         this.activated = props?.activated ? true : false;
         this.request_password_change = props?.request_password_change ? true : false;
