@@ -1,3 +1,9 @@
+import { Application, Request, Response } from 'express';
+
+import { utilsService } from '../lib/utils.service';
+
+
+
 export class Secretariat {
 
     account_id?: string;
@@ -60,6 +66,27 @@ export class Secretariat {
 
         this.updated_at = props?.updated_at || null;
         this.created_at = props?.created_at || null;
+
+    }
+
+
+
+
+
+    public log_out(req: Request, res: Response): Promise<any> {
+
+        try {
+
+            req.session.destroy(async (err) => {
+                if (err)
+                    return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: err.message }, res);
+                else
+                    return res.status(200).send({ code: 200, status: '200 OK', message: 'Logout OK' });
+            });
+
+        } catch (error) {
+            return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error.message }, res);
+        }
 
     }
 

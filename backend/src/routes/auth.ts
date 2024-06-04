@@ -1,10 +1,14 @@
 import { Application, Request, Response } from 'express';
 import * as passport from 'passport';
+import { config } from '../config';
 
 import { utilsService } from '../lib/utils.service';
-import { Account, Secretariat } from '../models';
+import { Account, Secretariat, Customer } from '../models';
 
 import { accountsDb } from '../lib/connectors/db/accounts-db';
+
+import { userExistsService } from '../lib/user.service';
+import { registrationService } from '../lib/registration.service';
 
 
 export class AuthRoutes {
@@ -39,6 +43,10 @@ export class AuthRoutes {
 
                             } else if (req.session.user.account_type === 'travel_agent') {
 
+                                const travel_agents_data = await accountsDb.query(`SELECT * FROM travel_agents WHERE account_id = :account_id;`, { account_id: req.session.user.account_id });
+                                if (travel_agents_data.rowsCount === 0)
+                                    return res.status(200).send({ user: req.session.user });
+
                                 return res.status(200).send({
                                     user: req.session.user,
                                     travel_agent_data: null
@@ -46,18 +54,19 @@ export class AuthRoutes {
 
                             } else if (req.session.user.account_type === 'customer') {
 
+                                const customers_data = await accountsDb.query(`SELECT * FROM customers WHERE account_id = :account_id;`, { account_id: req.session.user.account_id });
+                                if (customers_data.rowsCount === 0)
+                                    return res.status(200).send({ user: req.session.user });
+
                                 return res.status(200).send({
                                     user: req.session.user,
                                     travel_agent_data: null
                                 });
 
-                            } else {
-
+                            } else
                                 return res.status(200).send({
                                     user: req.session.user,
                                 });
-
-                            }
 
 
 
@@ -117,22 +126,16 @@ export class AuthRoutes {
             .post(async (req: Request, res: Response) => {
 
 
-                const registration_data: Account = new Account(req.body);
-
-
-                // check if the data arrived
-                if (!registration_data?.first_name || !registration_data?.last_name || !registration_data?.username || !registration_data?.email
-                    || !registration_data?.phone || !registration_data?.password || !registration_data?.account_type)
-                    return utilsService.systemErrorHandler({ code: 400, type: 'bad_request', message: 'Credentials to register the user are missing' }, res)
-
-
-
-                // check if the user exists
                 try {
+
+                    const new_customer = new Customer();
+
+                    return new_customer.register(req, res);
 
                 } catch (error) {
                     return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
                 }
+
 
             });
 
@@ -145,19 +148,31 @@ export class AuthRoutes {
         app.route('/api/auth/logout')
             .post(utilsService.checkAuth, async (req: Request, res: Response) => {
 
-                try {
+                if (req.session.user.account_type === 'customer') {
 
-                    req.session.destroy(async (err) => {
-                        if (err)
-                            return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: err.message }, res);
-                        else
-                            return res.status(200).send({ code: 200, status: '200 OK', message: 'Logout OK' });
-                    });
+                    const customer = new Customer();
 
-                } catch (error) {
-                    return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error.message }, res);
+                    try {
+                        return customer.log_out(req, res);
+                    } catch (error) {
+                        return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+                    }
+
+                } else if (req.session.user.account_type === 'secretariat') {
+
+                    const secretary = new Secretariat();
+
+                    try {
+                        return secretary.log_out(req, res);
+                    } catch (error) {
+                        return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+                    }
+
                 }
 
+
+
+                // TODO: implement logout for other account types
             });
 
 
