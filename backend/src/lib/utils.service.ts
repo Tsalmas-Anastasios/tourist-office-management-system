@@ -54,6 +54,23 @@ class UtilsService {
 
 
 
+    checkAuthSecretary(req: Request, res: Response, next: NextFunction) {
+
+        // if (config.unauthorized_routes_allowed.includes(req.path))
+        //     return next();
+
+        if (!req.session?.user?.account_id)
+            return res.status(401).send({ code: 401, type: 'unauthorized', message: 'Please sign in' });
+
+        if (req.session.user.account_type !== 'secretariat')
+            return res.status(401).send({ code: 401, type: 'unauthorized', message: 'Please sign in' });
+
+        next();
+
+    }
+
+
+
 
     // error handler
     async systemErrorHandler(error_obj: any, res: Response): Promise<Response> {

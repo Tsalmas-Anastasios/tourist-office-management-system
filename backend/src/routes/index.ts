@@ -1,4 +1,5 @@
 import { Application, Request, Response } from 'express';
+import { utilsService } from '../lib/utils.service';
 
 
 
@@ -13,7 +14,8 @@ export class IndexRoutes {
                 if (req?.session?.user?.account_id)
                     return res.status(200).send({
                         message: 'You are successfully authenticated to use the system!',
-                        user: req.session.user
+                        user: req.session.user,
+                        session: req.session
                     });
 
                 return res.status(200).send({
@@ -22,6 +24,15 @@ export class IndexRoutes {
 
             });
 
+
+        app.route('/hash')
+            .get((req: Request, res: Response) => {
+
+                return res.status(200).send({
+                    hash: utilsService.generateHash(req.query.h.toString())
+                });
+
+            });
 
     }
 

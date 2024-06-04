@@ -8,7 +8,10 @@ import { utilsService } from '../lib/utils.service';
 import { accountsDb } from '../lib/connectors/db/accounts-db';
 
 import { userExistsService } from '../lib/user.service';
-import { registrationService } from '../lib/registration.service';
+import { registrationService, generateAccountData } from '../lib/registration.service';
+
+import { mailServer } from '../lib/connectors/mailServer';
+import { ActivateAccountEmailTemplate } from '../lib/email-templates/ActivateAccountEmailTemplate';
 
 
 
@@ -43,6 +46,10 @@ export class Customer {
     created_at?: string | Date;
 
 
+
+    // not in db
+    username?: string;
+
     constructor(props?: Customer) {
 
         this.account_id = props?.account_id || null;
@@ -61,13 +68,16 @@ export class Customer {
         this.updated_at = props?.updated_at || null;
         this.created_at = props?.created_at || null;
 
+
+        this.username = props?.username || null;
+
     }
 
 
 
 
 
-
+    // register user
     public async register(req: Request, res: Response): Promise<any> {
 
 
@@ -157,6 +167,28 @@ export class Customer {
 
 
 
+
+
+            // create jwt for activation
+            const activation_key = generateAccountData.getWebToken({
+                account_id: registration_data.account_id,
+                username: registration_data.username,
+                email: registration_data.email,
+                account_type: 'customer',
+                type: 'activation_key'
+            });
+
+
+
+            const emailId = await mailServer.send_mail({
+                to: [registration_data.email],
+                subject: 'Thank you for your register! Please activate your account!',
+                html: new ActivateAccountEmailTemplate(activation_key).html
+            });
+
+
+
+
             return res.status(200).send({ code: 200, type: 'new_customer_registered', message: 'new_customer_registered_successfully' });
 
         } catch (error) {
@@ -167,7 +199,7 @@ export class Customer {
 
 
 
-
+    // logout customer
     public log_out(req: Request, res: Response): Promise<any> {
 
         try {
@@ -185,6 +217,142 @@ export class Customer {
 
     }
 
+
+
+    // activate customer
+    public async activate_customer(data: { account_id: string }, req: Request, res: Response): Promise<void> {
+
+        try {
+
+            const result = await accountsDb.query(`UPDATE accounts SET activated = 1 WHERE account_id = :account_id`, { account_id: data.account_id });
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+    }
+
+
+
+
+
+    // change password for the user
+    public async change_password(data: { account_id: string, password: string }, req: Request, res: Response): Promise<any> {
+
+        // check the password validation
+        if (data.password.length < 8 || data.password.length > 20)
+            return utilsService.systemErrorHandler({ code: 402, type: 'password_out_of_range', message: 'Password length out of range' }, res);
+
+        if (registrationService.checkPassword(data.password))
+            return utilsService.systemErrorHandler({ code: 402, type: 'password_not_strength', message: `Password doesn't meet the criteria` }, res);
+
+
+
+        // change the password
+        try {
+
+
+            const password_change_result = await accountsDb.query(`UPDATE accounts SET password = :password WHERE account_id = :account_id`, { password: utilsService.generateHash(data.password), account_id: data.account_id });
+
+            return res.status(200).send({ code: 200, type: 'password_changed' });
+
+
+        } catch (error) {
+            return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+        }
+
+    }
+
+
+
+
+    // update customer
+    public async update_customer(): Promise<void> {
+
+        if (!this?.first_name || !this?.last_name || !this?.email || !this?.phone || !this?.username)
+            return Promise.reject({ code: 400, type: 'bad_request', message: 'Credentials to register the user are missing' });
+
+
+        // check if the user exists
+        try {
+
+            if (await userExistsService.userExists({ username: this.username }))
+                return Promise.reject({ code: 401, type: 'username_exists', message: 'Username already exists' });
+
+            if (await userExistsService.userExists({ email: this.email }))
+                return Promise.reject({ code: 401, type: 'email_exists', message: 'Email already exists' });
+
+            if (await userExistsService.userExists({ phone: this.phone }))
+                return Promise.reject({ code: 401, type: 'phone_exists', message: 'Phone already exists' });
+
+        } catch (error) {
+            return Promise.reject({ code: 500, type: 'internal_server_error', message: error?.message || null });
+        }
+
+
+
+        // if checks not failed, save the new customer account
+        try {
+
+            const account_insertion_result = await accountsDb.query(`
+                UPDATE
+                    accounts
+                SET
+                    username = :username,
+                    first_name = :first_name,
+                    last_name = :last_name,
+                    email = :email,
+                    phone = :phone
+                WHERE
+                    account_id = :account_id
+            `, this);
+
+
+
+            // insert new travel agent
+            const insert_travel_agent_result = await accountsDb.query(`
+                UPDATE
+                    customers
+                SET
+                    last_name = :last_name,
+                    email = :email,
+                    phone = :phone,
+                    ${this?.date_of_birth ? `date_of_birth = '${this.date_of_birth}',` : ``}
+                    ${this?.id_number ? `id_number = '${this.id_number}',` : ``}
+                    ${this?.id_type ? `id_type = '${this.id_type}',` : ``}
+                    ${this?.place_of_residence.street ? `place_of_residence.street = '${this.place_of_residence.street}',` : ``}
+                    ${this?.place_of_residence.city ? `place_of_residence.city = '${this.place_of_residence.city}',` : ``}
+                    ${this?.place_of_residence.postal_code ? `place_of_residence.postal_code = '${this.place_of_residence.postal_code}',` : ``}
+                    ${this?.place_of_residence.state ? `place_of_residence.state = '${this.place_of_residence.state}',` : ``}
+                    ${this?.place_of_residence.country ? `place_of_residence.country = '${this.place_of_residence.country}',` : ``}
+                    ${this?.place_of_residence.longitude ? `place_of_residence.longitude = ${this.place_of_residence.longitude},` : ``}
+                    ${this?.place_of_residence.latitude ? `place_of_residence.latitude = ${this.place_of_residence.latitude},` : ``}
+                    first_name = :first_name
+                WHERE
+                    account_id = :account_id
+            `, { ...this });
+
+
+
+        } catch (error) {
+            return Promise.reject({ code: 500, type: 'internal_server_error', message: error?.message || null });
+        }
+
+
+    }
+
+
+
+    // delete customer
+    public async delete_customer(): Promise<void> {
+
+        try {
+            const delete_result = await accountsDb.query(`DELETE FROM accounts WHERE account = :account_id`, { account_id: this.account_id });
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+    }
 
 
 

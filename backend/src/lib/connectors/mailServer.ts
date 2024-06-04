@@ -11,11 +11,10 @@ class MailServer {
 
         try {
 
-
             const transporter = nodemailer.createTransport({
-                host: data?.host || process.env.MAIL_HOST,
-                port: data?.port || Number(process.env.MAIL_PORT),
-                secure: data?.secure || Number(process.env.MAIL_SECURE) ? true : false,
+                host: data?.host || process.env.ACCOUNTS_EMAIL_HOST,
+                port: data?.port || Number(process.env.ACCOUNTS_EMAIL_PORT),
+                secure: data?.secure || Number(process.env.ACCOUNTS_EMAIL_SECURE_CONNECTION) ? true : false,
                 auth: {
                     user: data?.from_email || emailServer.accounts_email.auth.user,
                     pass: data?.from_psswd || emailServer.accounts_email.auth.password,
@@ -26,6 +25,7 @@ class MailServer {
             });
 
 
+
             let from: string;
             if (data?.from_email)
                 if (data?.from_name)
@@ -34,6 +34,8 @@ class MailServer {
                     from = `"${emailServer.accounts_email.defaults.name}" <${data.from_email}>`;
             else
                 from = `"${emailServer.accounts_email.defaults.name}" <${emailServer.accounts_email.defaults.email}>`;
+
+
 
             const mail = await transporter.sendMail({
                 from: from,

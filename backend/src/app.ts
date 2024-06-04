@@ -13,11 +13,14 @@ import { stringValidator } from './lib/stringValidator.service';
 import { accountsDb } from './lib/connectors/db/accounts-db';
 import { initializePassportLocalStrategy } from './lib/authenticators/passport-local.mw';
 
-import { Account } from './models';
+import { Account, Customer, Secretariat, TravelAgent } from './models';
 
 
 import { IndexRoutes } from './routes/index';
 import { AuthRoutes } from './routes/auth';
+import { TravelAgentManagementRoutes } from './routes/travel-agent';
+import { CustomerManagementRoutes } from './routes/customers';
+import { SecretaryManagementRoutes } from './routes/secretaries';
 
 
 
@@ -25,6 +28,9 @@ import { AuthRoutes } from './routes/auth';
 declare module 'express-session' {
     export interface SessionData {
         user: Account;
+        secretary?: Secretariat;
+        travel_agent?: TravelAgent;
+        customer?: Customer;
         created_at: string | Date;
     }
 }
@@ -168,6 +174,9 @@ class App {
 
         new IndexRoutes().routes(this.app);
         new AuthRoutes().routes(this.app);
+        new TravelAgentManagementRoutes().routes(this.app);
+        new CustomerManagementRoutes().routes(this.app);
+        new SecretaryManagementRoutes().routes(this.app);
 
     }
 
