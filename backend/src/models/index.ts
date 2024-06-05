@@ -9,3 +9,7 @@ export { Secretariat } from './Secretariat';
 export { TravelAgent } from './TravelAgent';
 
 export { TravelPlan } from './TravelPlan';
+
+export { Place } from './Place';
+
+export { Accommodation } from './Accommodation';

@@ -15,7 +15,23 @@ class TravelAgentGetService {
             if (result.rowsCount === 0)
                 return null;
 
-            const travel_agent = new TravelAgent(result.rows[0]);
+            const row = result.rows[0];
+            const travel_agent = new TravelAgent({
+                ...row,
+                place_of_residence: {
+                    street: row['place_of_residence.street'],
+                    city: row['place_of_residence.city'],
+                    postal_code: row['place_of_residence.postal_code'],
+                    state: row['place_of_residence.state'],
+                    country: row['place_of_residence.country'],
+                    longitude: row['place_of_residence.longitude'],
+                    latitude: row['place_of_residence.latitude'],
+                },
+                office_details: {
+                    email: row['office_details.email'],
+                    phone: row['office_details.phone']
+                }
+            });
 
             return Promise.resolve(travel_agent);
 

@@ -36,7 +36,18 @@ export class CustomerManagementRoutes {
                     const result = await accountsDb.query(`SELECT * FROM customers`);
 
                     for (const row of result.rows)
-                        customers.push(new Customer(row));
+                        customers.push(new Customer({
+                            ...row,
+                            place_of_residence: {
+                                street: row['place_of_residence.street'],
+                                city: row['place_of_residence.city'],
+                                postal_code: row['place_of_residence.postal_code'],
+                                state: row['place_of_residence.state'],
+                                country: row['place_of_residence.country'],
+                                longitude: row['place_of_residence.longitude'],
+                                latitude: row['place_of_residence.latitude'],
+                            },
+                        }));
 
 
                     return res.status(200).send(customers);

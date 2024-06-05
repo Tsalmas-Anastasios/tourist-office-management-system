@@ -21,6 +21,7 @@ import { AuthRoutes } from './routes/auth';
 import { TravelAgentManagementRoutes } from './routes/travel-agent';
 import { CustomerManagementRoutes } from './routes/customers';
 import { SecretaryManagementRoutes } from './routes/secretaries';
+import { PlansRoutes } from './routes/plans';
 
 
 
@@ -177,6 +178,7 @@ class App {
         new TravelAgentManagementRoutes().routes(this.app);
         new CustomerManagementRoutes().routes(this.app);
         new SecretaryManagementRoutes().routes(this.app);
+        new PlansRoutes().routes(this.app);
 
     }
 

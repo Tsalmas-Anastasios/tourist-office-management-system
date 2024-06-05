@@ -1,9 +1,12 @@
+import { Accommodation } from './Accommodation';
+import { Place } from './Place';
+
 export class TravelPlan {
 
     plan_id?: string;
     title: string;
     title_internal: string;
-    price?: number;
+    price: number;
     booking_type?: 'direct' | 'request';
     category: string;
     persons?: number;
@@ -58,6 +61,11 @@ export class TravelPlan {
     };
 
 
+
+    // not in db
+    place_details?: Place;
+    accommodation_details?: Accommodation;
+
     constructor(props?: TravelPlan) {
 
         this.plan_id = props?.plan_id || null;
@@ -97,6 +105,9 @@ export class TravelPlan {
         this.accommodation_id = props?.accommodation_id || null;
 
         this.discount = props?.discount || null;
+
+        this.place_details = props?.place_details || null;
+        this.accommodation_details = props?.accommodation_details || null;
 
     }
 

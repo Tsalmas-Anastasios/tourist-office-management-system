@@ -37,7 +37,22 @@ export class TravelAgentManagementRoutes {
                     const result = await accountsDb.query(`SELECT * FROM travel_agents`);
 
                     for (const row of result.rows)
-                        travel_agents.push(new TravelAgent(row));
+                        travel_agents.push(new TravelAgent({
+                            ...row,
+                            place_of_residence: {
+                                street: row['place_of_residence.street'],
+                                city: row['place_of_residence.city'],
+                                postal_code: row['place_of_residence.postal_code'],
+                                state: row['place_of_residence.state'],
+                                country: row['place_of_residence.country'],
+                                longitude: row['place_of_residence.longitude'],
+                                latitude: row['place_of_residence.latitude'],
+                            },
+                            office_details: {
+                                email: row['office_details.email'],
+                                phone: row['office_details.phone']
+                            }
+                        }));
 
 
                     return res.status(200).send(travel_agents);

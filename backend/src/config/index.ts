@@ -12,6 +12,7 @@ class Config {
     public customer_id_length: number;
     public travel_agent_id_length: number;
     public secretariat_id_length: number;
+    public plan_id_length: number;
 
 
 
@@ -33,6 +34,7 @@ class Config {
         this.customer_id_length = 14;
         this.travel_agent_id_length = 14;
         this.secretariat_id_length = 14;
+        this.plan_id_length = 6;
 
 
 
