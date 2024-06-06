@@ -2,9 +2,11 @@ import { Application, Request, Response } from 'express';
 import { config } from '../config';
 
 import { utilsService } from '../lib/utils.service';
-import { TravelPlan } from '../models';
+import { Secretariat, TravelAgent, TravelPlan } from '../models';
 
 import { accountsDb } from '../lib/connectors/db/accounts-db';
+
+import { createNewPlan } from '../lib/manage-plan.service';
 
 
 
@@ -18,7 +20,7 @@ export class PlansRoutes {
         app.route('/api/plans')
             .get(async (req: Request, res: Response) => {
 
-
+                // TODO: implement me
 
             });
 
@@ -33,32 +35,87 @@ export class PlansRoutes {
                 const new_plan = new TravelPlan(req.body);
 
 
+                if (req.session.user.account_type === 'secretariat') {
 
-                if (!new_plan?.title || !new_plan?.title_internal || !new_plan?.price || !new_plan?.category
-                    || !new_plan?.small_description || !new_plan?.description || !new_plan?.date_range
-                    || !new_plan?.start_date || !new_plan?.end_date || !new_plan?.starting_type || !new_plan?.means_of_transport_arrival
-                    || !new_plan?.means_of_transport_return || !new_plan?.place_id || !new_plan?.accommodation_id)
-                    return utilsService.systemErrorHandler({ code: 400, type: 'bad_request', message: 'Data to create the plan are missing' }, res);
+                    const secretary = new Secretariat(req.session.secretary);
+                    await secretary.createNewPLan(new_plan, res);
 
+                } else if (req.session.user.account_type === 'travel_agent') {
 
+                    const travel_agent = new TravelAgent(req.session.travel_agent);
+                    await travel_agent.createNewPLan(new_plan, res);
 
-
-                try {
-
-                    new_plan.plan_id = utilsService.generateId({ alphabet: config.nanoid_basic_alphabet, length: config.plan_id_length });
-                    const insertion_result = await accountsDb.query(`
-                        INSERT INTO
-                            plans
-                        SET
-                            
-                    `);
-
-
-
-                } catch (error) {
-                    return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
                 }
 
+
+
+                return utilsService.systemErrorHandler({
+                    code: 500,
+                    type: 'wrong_action'
+                }, res);
+
+            });
+
+
+
+
+        // specific plan
+        app.route('/api/plans/p/:plan_id')
+            .get(async (req: Request, res: Response) => {
+                // TODO: implement me
+            })
+            .put(utilsService.checkAuth, async (req: Request, res: Response) => {
+
+                const existing_plan = new TravelPlan(req.body);
+                existing_plan.plan_id = req.params.plan_id.toString();
+
+
+
+                if (req.session.user.account_type === 'secretariat') {
+
+                    const secretary = new Secretariat(req.session.secretary);
+                    await secretary.updateExistingPlan(existing_plan, res);
+
+                } else if (req.session.user.account_type === 'travel_agent') {
+
+                    const travel_agent = new TravelAgent(req.session.travel_agent);
+                    await travel_agent.updateExistingPlan(existing_plan, res);
+
+                }
+
+
+
+                return utilsService.systemErrorHandler({
+                    code: 500,
+                    type: 'wrong_action'
+                }, res);
+
+
+            })
+            .delete(utilsService.checkAuth, async (req: Request, res: Response) => {
+
+                const plan_id = req.params.plan_id.toString();
+
+
+
+                if (req.session.user.account_type === 'secretariat') {
+
+                    const secretary = new Secretariat(req.session.secretary);
+                    await secretary.deleteExistingPlan(plan_id, res);
+
+                } else if (req.session.user.account_type === 'travel_agent') {
+
+                    const travel_agent = new TravelAgent(req.session.travel_agent);
+                    await travel_agent.deleteExistingPlan(plan_id, res);
+
+                }
+
+
+
+                return utilsService.systemErrorHandler({
+                    code: 500,
+                    type: 'wrong_action'
+                }, res);
 
             });
 

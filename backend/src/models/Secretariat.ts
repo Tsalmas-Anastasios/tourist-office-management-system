@@ -10,6 +10,8 @@ import { TravelAgent } from './TravelAgent';
 import { mailServer } from '../lib/connectors/mailServer';
 import { ActivateAccountEmailTemplate } from '../lib/email-templates/ActivateAccountEmailTemplate';
 import { Customer } from './Customer';
+import { TravelPlan } from './TravelPlan';
+import { createNewPlan, deleteExistingPlan, updateExistingPlan } from '../lib/manage-plan.service';
 
 
 
@@ -506,6 +508,66 @@ export class Secretariat {
 
         } catch (error) {
             return Promise.reject(error);
+        }
+
+    }
+
+
+
+    // create a new plan
+    public async createNewPLan(new_plan: TravelPlan, res: Response): Promise<any> {
+
+        try {
+
+            const insertion_result = await createNewPlan(new_plan);
+
+            if (insertion_result.code === 400)
+                return utilsService.systemErrorHandler(insertion_result, res);
+
+            return res.status(200).send(insertion_result);
+
+
+        } catch (error) {
+            return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+        }
+
+    }
+
+
+
+
+    // update an existing plan
+    public async updateExistingPlan(existing_plan: TravelPlan, res: Response): Promise<any> {
+
+        try {
+
+            const insertion_result = await updateExistingPlan(existing_plan);
+
+            if (insertion_result.code === 400)
+                return utilsService.systemErrorHandler(insertion_result, res);
+
+            return res.status(200).send(insertion_result);
+
+
+        } catch (error) {
+            return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+        }
+
+    }
+
+
+
+    // delete an existing plan
+    public async deleteExistingPlan(plan_id: string, res: Response): Promise<any> {
+
+        try {
+
+            const deletion_result = await deleteExistingPlan(plan_id);
+
+            return res.status(200).send(deletion_result);
+
+        } catch (error) {
+            return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
         }
 
     }

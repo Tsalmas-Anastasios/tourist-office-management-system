@@ -161,7 +161,7 @@ export class Customer {
                     phone = :phone
             `, {
                 customer_id: utilsService.generateId({ alphabet: config.nanoid_basic_alphabet, length: config.customer_id_length }),
-                ...registration_data
+                ...registration_data,
             });
 
 
