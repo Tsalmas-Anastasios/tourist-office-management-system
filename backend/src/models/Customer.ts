@@ -317,16 +317,16 @@ export class Customer {
                     last_name = :last_name,
                     email = :email,
                     phone = :phone,
-                    ${this?.date_of_birth ? `date_of_birth = '${this.date_of_birth}',` : ``}
-                    ${this?.id_number ? `id_number = '${this.id_number}',` : ``}
-                    ${this?.id_type ? `id_type = '${this.id_type}',` : ``}
-                    ${this?.place_of_residence.street ? `place_of_residence.street = '${this.place_of_residence.street}',` : ``}
-                    ${this?.place_of_residence.city ? `place_of_residence.city = '${this.place_of_residence.city}',` : ``}
-                    ${this?.place_of_residence.postal_code ? `place_of_residence.postal_code = '${this.place_of_residence.postal_code}',` : ``}
-                    ${this?.place_of_residence.state ? `place_of_residence.state = '${this.place_of_residence.state}',` : ``}
-                    ${this?.place_of_residence.country ? `place_of_residence.country = '${this.place_of_residence.country}',` : ``}
-                    ${this?.place_of_residence.longitude ? `place_of_residence.longitude = ${this.place_of_residence.longitude},` : ``}
-                    ${this?.place_of_residence.latitude ? `place_of_residence.latitude = ${this.place_of_residence.latitude},` : ``}
+                    date_of_birth = ${this?.date_of_birth ? `'${this.date_of_birth}'` : `NULL`},
+                    id_number = ${this?.id_number ? `'${this.id_number}'` : `NULL`},
+                    id_type = ${this?.id_type ? `'${this.id_type}'` : `NULL`},
+                    place_of_residence__street = ${this?.place_of_residence?.street ? `'${this.place_of_residence.street}'` : `NULL`},
+                    place_of_residence__city = ${this?.place_of_residence?.city ? `'${this.place_of_residence.city}'` : `NULL`},
+                    place_of_residence__postal_code = ${this?.place_of_residence?.postal_code ? `'${this.place_of_residence.postal_code}'` : `NULL`},
+                    place_of_residence__state = ${this?.place_of_residence?.state ? `'${this.place_of_residence.state}'` : `NULL`},
+                    place_of_residence__country = ${this?.place_of_residence?.country ? `'${this.place_of_residence.country}'` : `NULL`},
+                    place_of_residence__longitude = ${this?.place_of_residence?.longitude ? `${this.place_of_residence.longitude}` : `NULL`},
+                    place_of_residence__latitude = ${this?.place_of_residence?.latitude ? `${this.place_of_residence.latitude}` : `NULL`},
                     first_name = :first_name
                 WHERE
                     account_id = :account_id

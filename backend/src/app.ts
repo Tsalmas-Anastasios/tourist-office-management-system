@@ -22,6 +22,8 @@ import { TravelAgentManagementRoutes } from './routes/travel-agent';
 import { CustomerManagementRoutes } from './routes/customers';
 import { SecretaryManagementRoutes } from './routes/secretaries';
 import { PlansRoutes } from './routes/plans';
+import { PlacesRoutes } from './routes/places';
+import { AccommodationRoutes } from './routes/accommodation';
 
 
 
@@ -54,7 +56,8 @@ class App {
 
 
     private domains_list = [
-        'http://localhost:4200'
+        'http://localhost:4200',
+        'http://127.0.0.1:5500',
     ];
 
 
@@ -117,13 +120,13 @@ class App {
             methods: ['GET', 'POST', 'PUT', 'DELETE'],
         }));
 
-        this.app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        // this.app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
-            res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Authorization, Content-Type, X-Content-Type-Options');
+        //     res.setHeader('', 'Origin, X-Requested-With, Authorization, Content-Type, X-Content-Type-Options');
 
-            next();
+        //     next();
 
-        });
+        // });
 
 
         this.app.set('trust proxy', true);
@@ -179,6 +182,8 @@ class App {
         new CustomerManagementRoutes().routes(this.app);
         new SecretaryManagementRoutes().routes(this.app);
         new PlansRoutes().routes(this.app);
+        new PlacesRoutes().routes(this.app);
+        new AccommodationRoutes().routes(this.app);
 
     }
 

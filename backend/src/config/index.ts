@@ -13,6 +13,8 @@ class Config {
     public travel_agent_id_length: number;
     public secretariat_id_length: number;
     public plan_id_length: number;
+    public place_id_length: number;
+    public accommodation_id_length: number;
 
 
 
@@ -27,7 +29,7 @@ class Config {
         this.SECRET_KEY_JWT = process.env.SECRET_KEY_JWT;
 
         // basic nanoid alphabet
-        this.nanoid_basic_alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^*~-_=';
+        this.nanoid_basic_alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#-_';
         this.nanoid_basic_length = 16;
 
         this.account_id_length = 14;
@@ -35,6 +37,8 @@ class Config {
         this.travel_agent_id_length = 14;
         this.secretariat_id_length = 14;
         this.plan_id_length = 6;
+        this.place_id_length = 14;
+        this.accommodation_id_length = 14;
 
 
 

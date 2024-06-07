@@ -18,21 +18,21 @@ class SecretaryGetService {
             const secretary = new Secretariat({
                 ...row,
                 place_of_residence: {
-                    street: row['place_of_residence.street'],
-                    city: row['place_of_residence.city'],
-                    postal_code: row['place_of_residence.postal_code'],
-                    state: row['place_of_residence.state'],
-                    country: row['place_of_residence.country'],
-                    longitude: row['place_of_residence.longitude'],
-                    latitude: row['place_of_residence.latitude'],
+                    street: row['place_of_residence__street'],
+                    city: row['place_of_residence__city'],
+                    postal_code: row['place_of_residence__postal_code'],
+                    state: row['place_of_residence__state'],
+                    country: row['place_of_residence__country'],
+                    longitude: row['place_of_residence__longitude'],
+                    latitude: row['place_of_residence__latitude'],
                 },
                 office_hours: {
-                    start_time: row['office_hours.start_time'],
-                    end_time: row['office_hours.end_time']
+                    start_time: row['office_hours__start_time'],
+                    end_time: row['office_hours__end_time']
                 },
                 office_details: {
-                    email: row['office_details.email'],
-                    phone: row['office_details.phone']
+                    email: row['office_details__email'],
+                    phone: row['office_details__phone']
                 }
             });
             return Promise.resolve(secretary);

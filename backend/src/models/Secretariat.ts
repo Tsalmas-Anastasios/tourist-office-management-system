@@ -12,6 +12,8 @@ import { ActivateAccountEmailTemplate } from '../lib/email-templates/ActivateAcc
 import { Customer } from './Customer';
 import { TravelPlan } from './TravelPlan';
 import { createNewPlan, deleteExistingPlan, updateExistingPlan } from '../lib/manage-plan.service';
+import { Place } from './Place';
+import { Accommodation } from './Accommodation';
 
 
 
@@ -181,17 +183,17 @@ export class Secretariat {
                     ${new_travel_agent?.date_of_birth ? `date_of_birth = '${new_travel_agent.date_of_birth}',` : ``}
                     ${new_travel_agent?.id_number ? `id_number = '${new_travel_agent.id_number}',` : ``}
                     ${new_travel_agent?.id_type ? `id_type = '${new_travel_agent.id_type}',` : ``}
-                    ${new_travel_agent?.place_of_residence.street ? `place_of_residence.street = '${new_travel_agent.place_of_residence.street}',` : ``}
-                    ${new_travel_agent?.place_of_residence.city ? `place_of_residence.city = '${new_travel_agent.place_of_residence.city}',` : ``}
-                    ${new_travel_agent?.place_of_residence.postal_code ? `place_of_residence.postal_code = '${new_travel_agent.place_of_residence.postal_code}',` : ``}
-                    ${new_travel_agent?.place_of_residence.state ? `place_of_residence.state = '${new_travel_agent.place_of_residence.state}',` : ``}
-                    ${new_travel_agent?.place_of_residence.country ? `place_of_residence.country = '${new_travel_agent.place_of_residence.country}',` : ``}
-                    ${new_travel_agent?.place_of_residence.longitude ? `place_of_residence.longitude = ${new_travel_agent.place_of_residence.longitude},` : ``}
-                    ${new_travel_agent?.place_of_residence.latitude ? `place_of_residence.latitude = ${new_travel_agent.place_of_residence.latitude},` : ``}
+                    ${new_travel_agent?.place_of_residence.street ? `place_of_residence__street = '${new_travel_agent.place_of_residence.street}',` : ``}
+                    ${new_travel_agent?.place_of_residence.city ? `place_of_residence__city = '${new_travel_agent.place_of_residence.city}',` : ``}
+                    ${new_travel_agent?.place_of_residence.postal_code ? `place_of_residence__postal_code = '${new_travel_agent.place_of_residence.postal_code}',` : ``}
+                    ${new_travel_agent?.place_of_residence.state ? `place_of_residence__state = '${new_travel_agent.place_of_residence.state}',` : ``}
+                    ${new_travel_agent?.place_of_residence.country ? `place_of_residence__country = '${new_travel_agent.place_of_residence.country}',` : ``}
+                    ${new_travel_agent?.place_of_residence.longitude ? `place_of_residence__longitude = ${new_travel_agent.place_of_residence.longitude},` : ``}
+                    ${new_travel_agent?.place_of_residence.latitude ? `place_of_residence__latitude = ${new_travel_agent.place_of_residence.latitude},` : ``}
                     ${new_travel_agent?.start_date ? `start_date = '${new_travel_agent.start_date}',` : ``}
                     still_working = ${new_travel_agent.still_working ? 1 : 0},
-                    ${new_travel_agent?.office_details.email ? `office_details.email = '${new_travel_agent.office_details.email}',` : ``}
-                    ${new_travel_agent?.office_details.phone ? `office_details.phone = '${new_travel_agent.office_details.phone}',` : ``}
+                    ${new_travel_agent?.office_details.email ? `office_details__email = '${new_travel_agent.office_details.email}',` : ``}
+                    ${new_travel_agent?.office_details.phone ? `office_details__phone = '${new_travel_agent.office_details.phone}',` : ``}
                     travel_agent_id = :travel_agent_id;
             `, {
                 ...new_travel_agent,
@@ -305,19 +307,19 @@ export class Secretariat {
                     ${new_secretary?.date_of_birth ? `date_of_birth = '${new_secretary.date_of_birth}',` : ``}
                     ${new_secretary?.id_number ? `id_number = '${new_secretary.id_number}',` : ``}
                     ${new_secretary?.id_type ? `id_type = '${new_secretary.id_type}',` : ``}
-                    ${new_secretary?.place_of_residence?.street ? `place_of_residence.street = '${new_secretary.place_of_residence.street}',` : ``}
-                    ${new_secretary?.place_of_residence?.city ? `place_of_residence.city = '${new_secretary.place_of_residence.city}',` : ``}
-                    ${new_secretary?.place_of_residence?.postal_code ? `place_of_residence.postal_code = '${new_secretary.place_of_residence.postal_code}',` : ``}
-                    ${new_secretary?.place_of_residence?.state ? `place_of_residence.state = '${new_secretary.place_of_residence.state}',` : ``}
-                    ${new_secretary?.place_of_residence?.country ? `place_of_residence.country = '${new_secretary.place_of_residence.country}',` : ``}
-                    ${new_secretary?.place_of_residence?.longitude ? `place_of_residence.longitude = ${new_secretary.place_of_residence.longitude},` : ``}
-                    ${new_secretary?.place_of_residence?.latitude ? `place_of_residence.latitude = ${new_secretary.place_of_residence.latitude},` : ``}
+                    ${new_secretary?.place_of_residence?.street ? `place_of_residence__street = '${new_secretary.place_of_residence.street}',` : ``}
+                    ${new_secretary?.place_of_residence?.city ? `place_of_residence__city = '${new_secretary.place_of_residence.city}',` : ``}
+                    ${new_secretary?.place_of_residence?.postal_code ? `place_of_residence__postal_code = '${new_secretary.place_of_residence.postal_code}',` : ``}
+                    ${new_secretary?.place_of_residence?.state ? `place_of_residence__state = '${new_secretary.place_of_residence.state}',` : ``}
+                    ${new_secretary?.place_of_residence?.country ? `place_of_residence__country = '${new_secretary.place_of_residence.country}',` : ``}
+                    ${new_secretary?.place_of_residence?.longitude ? `place_of_residence__longitude = ${new_secretary.place_of_residence.longitude},` : ``}
+                    ${new_secretary?.place_of_residence?.latitude ? `place_of_residence__latitude = ${new_secretary.place_of_residence.latitude},` : ``}
                     ${new_secretary?.start_date ? `start_date = '${new_secretary.start_date}',` : ``}
                     still_working = ${new_secretary.still_working ? 1 : 0},
-                    ${new_secretary?.office_hours?.start_time ? `office_hours.start_time = '${new_secretary.office_hours.start_time}',` : ``}
-                    ${new_secretary?.office_hours?.end_time ? `office_hours.end_time = '${new_secretary.office_hours.end_time}',` : ``}
-                    ${new_secretary?.office_details?.email ? `office_details.email = '${new_secretary.office_details.email}',` : ``}
-                    ${new_secretary?.office_details?.phone ? `office_details.phone = '${new_secretary.office_details.phone}',` : ``}
+                    ${new_secretary?.office_hours?.start_time ? `office_hours__start_time = '${new_secretary.office_hours.start_time}',` : ``}
+                    ${new_secretary?.office_hours?.end_time ? `office_hours__end_time = '${new_secretary.office_hours.end_time}',` : ``}
+                    ${new_secretary?.office_details?.email ? `office_details__email = '${new_secretary.office_details.email}',` : ``}
+                    ${new_secretary?.office_details?.phone ? `office_details__phone = '${new_secretary.office_details.phone}',` : ``}
                     secretariat_id = :secretariat_id
             `, {
                 ...new_secretary,
@@ -469,22 +471,22 @@ export class Secretariat {
                     last_name = :last_name,
                     email = :email,
                     phone = :phone,
-                    ${this?.date_of_birth ? `date_of_birth = '${this.date_of_birth}',` : ``}
-                    ${this?.id_number ? `id_number = '${this.id_number}',` : ``}
-                    ${this?.id_type ? `id_type = '${this.id_type}',` : ``}
-                    ${this?.place_of_residence.street ? `place_of_residence.street = '${this.place_of_residence.street}',` : ``}
-                    ${this?.place_of_residence.city ? `place_of_residence.city = '${this.place_of_residence.city}',` : ``}
-                    ${this?.place_of_residence.postal_code ? `place_of_residence.postal_code = '${this.place_of_residence.postal_code}',` : ``}
-                    ${this?.place_of_residence.state ? `place_of_residence.state = '${this.place_of_residence.state}',` : ``}
-                    ${this?.place_of_residence.country ? `place_of_residence.country = '${this.place_of_residence.country}',` : ``}
-                    ${this?.place_of_residence.longitude ? `place_of_residence.longitude = ${this.place_of_residence.longitude},` : ``}
-                    ${this?.place_of_residence.latitude ? `place_of_residence.latitude = ${this.place_of_residence.latitude},` : ``}
-                    ${this?.start_date ? `start_date = '${this.start_date}',` : ``}
+                    date_of_birth = ${this?.date_of_birth ? `'${this.date_of_birth}'` : `NULL`},
+                    id_number = ${this?.id_number ? `'${this.id_number}'` : `NULL`},
+                    id_type = ${this?.id_type ? `'${this.id_type}'` : `NULL`},
+                    place_of_residence__street = ${this?.place_of_residence?.street ? `'${this.place_of_residence.street}'` : `NULL`},
+                    place_of_residence__city = ${this?.place_of_residence?.city ? `'${this.place_of_residence.city}'` : `NULL`},
+                    place_of_residence__postal_code = ${this?.place_of_residence?.postal_code ? `'${this.place_of_residence.postal_code}'` : `NULL`},
+                    place_of_residence__state = ${this?.place_of_residence?.state ? `'${this.place_of_residence.state}'` : `NULL`},
+                    place_of_residence__country = ${this?.place_of_residence?.country ? `'${this.place_of_residence.country}'` : `NULL`},
+                    place_of_residence__longitude = ${this?.place_of_residence?.longitude ? `${this.place_of_residence.longitude}` : `NULL`},
+                    place_of_residence__latitude = ${this?.place_of_residence?.latitude ? `${this.place_of_residence.latitude}` : `NULL`},
+                    start_date = ${this?.start_date ? `'${this.start_date}'` : `NULL`},
                     still_working = ${this.still_working ? 1 : 0},
-                    ${this?.office_hours.start_time ? `office_hours.start_time = '${this.office_hours.start_time}',` : ``}
-                    ${this?.office_hours.end_time ? `office_hours.end_time = '${this.office_hours.end_time}',` : ``}
-                    ${this?.office_details.email ? `office_details.email = '${this.office_details.email}',` : ``}
-                    ${this?.office_details.phone ? `office_details.phone = '${this.office_details.phone}',` : ``}
+                    office_hours__start_time = ${this?.office_hours?.start_time ? `'${this.office_hours.start_time}'` : `NULL`},
+                    office_hours__end_time = ${this?.office_hours?.end_time ? `'${this.office_hours.end_time}'` : `NULL`},
+                    office_details__email = ${this?.office_details?.email ? `'${this.office_details.email}'` : `NULL`},
+                    office_details__phone = ${this?.office_details?.phone ? `'${this.office_details.phone}'` : `NULL`},
                     first_name = :first_name
                 WHERE
                     account_id = :account_id
@@ -568,6 +570,202 @@ export class Secretariat {
 
         } catch (error) {
             return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+        }
+
+    }
+
+
+
+    // new place
+    public async newPlace(new_place: Place): Promise<any> {
+
+
+        if (!new_place?.country || !new_place?.city || !new_place?.postal_code || !new_place?.state)
+            return Promise.resolve({ code: 400, type: 'missing_data' });
+
+
+
+        try {
+
+            new_place.place_id = utilsService.generateId({ alphabet: config.nanoid_basic_alphabet, length: config.place_id_length });
+            const insertion_result = await accountsDb.query(`
+                INSERT INTO
+                    places
+                SET
+                    country = :country,
+                    city = :city,
+                    postal_code = :postal_code,
+                    state = :state,
+                    ${new_place?.street ? `street = '${new_place.street}',` : ``}
+                    ${new_place?.longitude ? `longitude = '${new_place.longitude}',` : ``}
+                    ${new_place?.latitude ? `latitude = '${new_place.latitude}',` : ``}
+                    place_id = :place_id
+            `, new_place);
+
+
+            return Promise.resolve({ code: 200, type: 'new_place_inserted' });
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+
+    }
+
+
+
+    // update existing place
+    public async updateExistingPlace(existing_place: Place): Promise<any> {
+
+        if (!existing_place?.place_id || !existing_place?.country || !existing_place?.city || !existing_place?.postal_code || !existing_place?.state)
+            return Promise.resolve({ code: 400, type: 'missing_data' });
+
+
+
+        try {
+
+            const update_result = await accountsDb.query(`
+                UPDATE
+                    places
+                SET
+                    country = :country,
+                    city = :city,
+                    postal_code = :postal_code,
+                    state = :state,
+                    street = ${existing_place?.street ? `'${existing_place.street}'` : `NULL`},
+                    longitude = ${existing_place?.longitude ? `'${existing_place.longitude}'` : `NULL`},
+                    latitude = ${existing_place?.latitude ? `'${existing_place.latitude}'` : `NULL`},
+                    place_id = :place_id
+                WHERE
+                    place_id = :place_id;
+            `, existing_place);
+
+
+            return Promise.resolve({ code: 200, type: 'place_updated' });
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+    }
+
+
+
+    // delete existing place
+    public async deleteExistingPlace(place_id: string): Promise<any> {
+
+        try {
+
+            const deletion_result = await accountsDb.query(`DELETE FROM places WHERE place_id = :place_id`, { place_id: place_id });
+
+            return Promise.resolve({ code: 200, type: 'place_deleted' });
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+    }
+
+
+
+
+    // new accommodation
+    public async addNewAccommodation(new_accommodation: Accommodation): Promise<any> {
+
+        if (!new_accommodation?.title || !new_accommodation?.title || !new_accommodation?.type || !new_accommodation?.place_id)
+            return Promise.resolve({ code: 400, type: 'missing_data' });
+
+
+
+        try {
+
+            new_accommodation.accommodation_id = utilsService.generateId({ alphabet: config.nanoid_basic_alphabet, length: config.accommodation_id_length });
+            const insertion_result = await accountsDb.query(`
+                INSERT INTO
+                    accommodations
+                SET
+                    accommodation_id = :accommodation_id,
+                    title = :title,
+                    title_internal = :title_internal,
+                    type = :type,
+                    ${new_accommodation?.location_details?.street ? `location_details__street = ''${new_accommodation.location_details.street}'',` : ``}
+                    ${new_accommodation?.location_details?.city ? `location_details__city = ''${new_accommodation.location_details.city}'',` : ``}
+                    ${new_accommodation?.location_details?.postal_code ? `location_details__postal_code = ''${new_accommodation.location_details.postal_code}'',` : ``}
+                    ${new_accommodation?.location_details?.state ? `location_details__state = ''${new_accommodation.location_details.state}'',` : ``}
+                    ${new_accommodation?.location_details?.country ? `location_details__country = ''${new_accommodation.location_details.country}'',` : ``}
+                    ${new_accommodation?.location_details?.longitude ? `location_details__longitude = '${new_accommodation.location_details.longitude}',` : ``}
+                    ${new_accommodation?.location_details?.latitude ? `location_details__latitude = '${new_accommodation.location_details.latitude}',` : ``}
+                    accept_adults = ${new_accommodation?.accept_adults ? 1 : 0},
+                    accept_children = ${new_accommodation?.accept_children ? 1 : 0},
+                    accept_infants = ${new_accommodation?.accept_infants ? 1 : 0};
+            `, new_accommodation);
+
+
+            return Promise.resolve({ code: 200, type: 'new_accommodation_inserted' });
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+    }
+
+
+
+    // update existing accommodation
+    public async updateExistingAccommodation(existing_accommodation: Accommodation): Promise<any> {
+
+        if (!existing_accommodation?.title || !existing_accommodation?.title || !existing_accommodation?.type || !existing_accommodation?.place_id)
+            return Promise.resolve({ code: 400, type: 'missing_data' });
+
+
+
+        try {
+
+            existing_accommodation.accommodation_id = utilsService.generateId({ alphabet: config.nanoid_basic_alphabet, length: config.accommodation_id_length });
+            const insertion_result = await accountsDb.query(`
+                UPDATE
+                    accommodations
+                SET
+                    accommodation_id = :accommodation_id,
+                    title = :title,
+                    title_internal = :title_internal,
+                    type = :type,
+                    location_details__street = ${existing_accommodation?.location_details?.street ? `'${existing_accommodation.location_details.street}'` : `NULL`},
+                    location_details__city = ${existing_accommodation?.location_details?.city ? `'${existing_accommodation.location_details.city}'` : `NULL`},
+                    location_details__postal_code = ${existing_accommodation?.location_details?.postal_code ? `'${existing_accommodation.location_details.postal_code}'` : `NULL`},
+                    location_details__state = ${existing_accommodation?.location_details?.state ? `'${existing_accommodation.location_details.state}'` : `NULL`},
+                    location_details__country = ${existing_accommodation?.location_details?.country ? `'${existing_accommodation.location_details.country}'` : `NULL`},
+                    location_details__longitude = ${existing_accommodation?.location_details?.longitude ? `${existing_accommodation.location_details.longitude}` : `NULL`},
+                    location_details__latitude = ${existing_accommodation?.location_details?.latitude ? `${existing_accommodation.location_details.latitude}` : `NULL`},
+                    accept_adults = ${existing_accommodation?.accept_adults ? 1 : 0},
+                    accept_children = ${existing_accommodation?.accept_children ? 1 : 0},
+                    accept_infants = ${existing_accommodation?.accept_infants ? 1 : 0}
+                WHERE
+                    accommodation_id = :accommodation_id
+            `, existing_accommodation);
+
+
+            return Promise.resolve({ code: 200, type: 'accommodation_updated' });
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+    }
+
+
+
+    // delete existing accommodation
+    public async deleteExistingAccommodation(accommodation_id: string): Promise<any> {
+
+        try {
+
+            const deletion_result = await accountsDb.query(`DELETE FROM accommodations WHERE accommodation_id = :accommodation_id`, { accommodation_id: accommodation_id });
+
+            return Promise.resolve({ code: 200, type: 'accommodation_deleted' });
+
+        } catch (error) {
+            return Promise.reject(error);
         }
 
     }

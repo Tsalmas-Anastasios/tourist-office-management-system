@@ -39,13 +39,13 @@ export class CustomerManagementRoutes {
                         customers.push(new Customer({
                             ...row,
                             place_of_residence: {
-                                street: row['place_of_residence.street'],
-                                city: row['place_of_residence.city'],
-                                postal_code: row['place_of_residence.postal_code'],
-                                state: row['place_of_residence.state'],
-                                country: row['place_of_residence.country'],
-                                longitude: row['place_of_residence.longitude'],
-                                latitude: row['place_of_residence.latitude'],
+                                street: row['place_of_residence__street'],
+                                city: row['place_of_residence__city'],
+                                postal_code: row['place_of_residence__postal_code'],
+                                state: row['place_of_residence__state'],
+                                country: row['place_of_residence__country'],
+                                longitude: row['place_of_residence__longitude'],
+                                latitude: row['place_of_residence__latitude'],
                             },
                         }));
 
