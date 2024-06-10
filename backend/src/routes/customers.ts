@@ -27,7 +27,7 @@ export class CustomerManagementRoutes {
 
         // get all customers
         app.route('/api/customers')
-            .get(utilsService.checkAuthSecretary, async (req: Request, res: Response) => {
+            .get(async (req: Request, res: Response) => {
 
                 const customers: Customer[] = [];
 

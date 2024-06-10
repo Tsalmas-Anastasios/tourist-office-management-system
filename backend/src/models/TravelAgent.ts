@@ -6,6 +6,9 @@ import { userExistsService } from '../lib/user.service';
 import { registrationService, generateAccountData } from '../lib/registration.service';
 import { TravelPlan } from './TravelPlan';
 import { createNewPlan, deleteExistingPlan, updateExistingPlan } from '../lib/manage-plan.service';
+import { PlanBooking } from './Booking';
+import { Account } from './Account';
+import { mailServer } from '../lib/connectors/mailServer';
 
 
 export class TravelAgent {
@@ -306,6 +309,43 @@ export class TravelAgent {
 
         } catch (error) {
             return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+        }
+
+    }
+
+
+
+
+    // book a plan
+    public async bookPlan(booking_details: PlanBooking, user: Account): Promise<any> {
+
+        try {
+
+            const insertion_result = await accountsDb.query(`
+                INSERT INTO
+                    bookings
+                SET
+                    booking_id = :booking_id,
+                    plan_id = :plan_id,
+                    travel_agent_id = :travel_agent_id,
+                    booking_dates_start = :booking_dates_start,
+                    booking_dates_end = :booking_dates_end,
+                    card_number = :card_number;
+            `, booking_details);
+
+
+
+            const emailId = await mailServer.send_mail({
+                to: [user.email],
+                subject: 'Booking successfully saved! | Tourist office',
+                html: 'Η κράτησή σας δημιουργήθηκε με επιτυχία! Θα λάβετε ενημερώσεις και πρόσθετες πληροφορίες για το ταξίδι σας, 5 μέρες πριν την αναχώρησή σας! Σας ευχαριστούμε που επιλέξατε εμάς για την δημιουργία του ταξιδιού σας!'
+            });
+
+
+            return Promise.resolve({ code: 200, type: 'booking_created' });
+
+        } catch (error) {
+            return Promise.reject(error);
         }
 
     }

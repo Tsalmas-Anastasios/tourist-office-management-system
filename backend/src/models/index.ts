@@ -13,3 +13,5 @@ export { TravelPlan } from './TravelPlan';
 export { Place } from './Place';
 
 export { Accommodation } from './Accommodation';
+
+export { PlanBooking } from './Booking';

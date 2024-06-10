@@ -24,6 +24,7 @@ import { SecretaryManagementRoutes } from './routes/secretaries';
 import { PlansRoutes } from './routes/plans';
 import { PlacesRoutes } from './routes/places';
 import { AccommodationRoutes } from './routes/accommodation';
+import { BookingsRoutes } from './routes/bookings';
 
 
 
@@ -105,24 +106,24 @@ class App {
 
 
         this.app.use(cors({
-            // origin: '*',
-            origin: (origin, callback) => {
+            origin: '*',
+            // origin: (origin, callback) => {
 
-                if (!origin)
-                    return callback(null, true);
+            //     if (!origin)
+            //         return callback(null, true);
 
-                if (!this.domains_list.includes(origin))
-                    return callback(null, false);                // to block --> (null, false)
+            //     if (!this.domains_list.includes(origin))
+            //         return callback(null, false);                // to block --> (null, false)
 
-                return callback(null, true);
-            },
+            //     return callback(null, true);
+            // },
             credentials: true,
             methods: ['GET', 'POST', 'PUT', 'DELETE'],
         }));
 
         // this.app.use(async (req: express.Request, res: express.Response, next: express.NextFunction) => {
 
-        //     res.setHeader('', 'Origin, X-Requested-With, Authorization, Content-Type, X-Content-Type-Options');
+        //     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Authorization, Content-Type, X-Content-Type-Options');
 
         //     next();
 
@@ -184,6 +185,7 @@ class App {
         new PlansRoutes().routes(this.app);
         new PlacesRoutes().routes(this.app);
         new AccommodationRoutes().routes(this.app);
+        new BookingsRoutes().routes(this.app);
 
     }
 

@@ -32,9 +32,6 @@ document.write(`
             /* Safari */
             animation: spin 2s linear infinite;
             position: absolute;
-            top: 40%;
-            left: 40%;
-            transform: translate(-50%, -50%);
         }
 
         /* Safari */
@@ -129,3 +126,8 @@ document.onreadystatechange = () => {
     if (document.readyState === 'complete')
         pre_loader_disable_hide();
 }
+
+
+
+
+// export { pre_loader_disable_hide, pre_loader_enable_visible };

@@ -34,6 +34,7 @@ export class AuthRoutes {
                             req.session.created_at = utilsService.moment().toDate();
 
 
+
                             if (req.session.user.account_type === 'secretariat') {
 
                                 const secretariat_data = await accountsDb.query(`SELECT * FROM secretariat WHERE account_id = :account_id;`, { account_id: req.session.user.account_id });
@@ -128,6 +129,12 @@ export class AuthRoutes {
                             code: 400,
                             type: 'wrong_password',
                             message: 'Wrong password'
+                        }, res);
+                    else
+                        return await utilsService.systemErrorHandler({
+                            code: 500,
+                            type: 'undefined_error',
+                            message: options.message
                         }, res);
 
                 })(req, res);

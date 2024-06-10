@@ -15,6 +15,7 @@ class Config {
     public plan_id_length: number;
     public place_id_length: number;
     public accommodation_id_length: number;
+    public booking_id_length: number;
 
 
 
@@ -39,6 +40,7 @@ class Config {
         this.plan_id_length = 6;
         this.place_id_length = 14;
         this.accommodation_id_length = 14;
+        this.booking_id_length = 14;
 
 
 

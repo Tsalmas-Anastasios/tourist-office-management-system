@@ -1,3 +1,14 @@
+let user_logged_in = true;
+if (!JSON.parse(localStorage.getItem('session_data'))?.user?.account_id)
+    user_logged_in = false;
+
+
+let session_data = null;
+if (user_logged_in)
+    session_data = JSON.parse(localStorage.getItem('session_data'));
+
+
+
 document.write(`
     <nav class="navbar navbar-expand-lg bg-body-tertiary" id="global-navbar">
         <div class="container-fluid">
@@ -14,18 +25,36 @@ document.write(`
                     <li class="nav-item">
                         <a class="nav-link" href="index.html">Πακέτα</a>
                     </li>
-                    <li class="nav-item">
+
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Δημιουργία πακέτου</a>
-                    </li>
+                    </li> -->
+
+
+                    ${user_logged_in ? session_data.user.account_type === 'secretariat' ? `
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Κρατήσεις</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./travel-agents.html">Ταξιδιωτικοί πράκτορες</a>
+                        </li>
+                    ` : `` : ``}
+
                 </ul>
                 <!-- <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form> -->
 
-                <a href="#" class="btn btn-primary" id="loginLinkButton">
-                    Σύνδεση
-                </a>
+                ${user_logged_in ? `
+                    <a href="./logout.html" class="btn btn-secondary" id="logoutLinkButton">
+                        Αποσύνδεση
+                    </a>
+                ` : `
+                    <a href="./login.html" class="btn btn-primary" id="loginLinkButton">
+                        Σύνδεση
+                    </a>
+                `}
             </div>
         </div>
     </nav>
