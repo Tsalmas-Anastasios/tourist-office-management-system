@@ -16,9 +16,9 @@ export class TravelAgentManagementRoutes {
 
         // create new travel agent
         app.route('/api/travel-agents/new')
-            .post(utilsService.checkAuthSecretary, async (req: Request, res: Response) => {
+            .post(async (req: Request, res: Response) => {
 
-                const secretary = new Secretariat(req.session.secretary);
+                const secretary = new Secretariat(req?.session?.secretary || req?.body?.secretary || null);
                 return secretary.register_travel_agent({ new_travel_agent: req.body.travel_agent }, req, res);
 
             });
@@ -27,7 +27,7 @@ export class TravelAgentManagementRoutes {
 
         // get all travel agents
         app.route('/api/travel-agents')
-            .get(utilsService.checkAuthSecretary, async (req: Request, res: Response) => {
+            .get(async (req: Request, res: Response) => {
 
                 const travel_agents: TravelAgent[] = [];
 
@@ -83,7 +83,7 @@ export class TravelAgentManagementRoutes {
                 }
 
             })
-            .put(utilsService.checkAuth, async (req: Request, res: Response) => {
+            .put(async (req: Request, res: Response) => {
 
                 const account_id = req.params.account_id.toString();
 
@@ -108,21 +108,18 @@ export class TravelAgentManagementRoutes {
                 }
 
             })
-            .delete(utilsService.checkAuth, async (req: Request, res: Response) => {
+            .delete(async (req: Request, res: Response) => {
 
                 const account_id = req.params.account_id.toString();
+                const user = req?.session?.user || req?.body?.user || null;
 
-                if (account_id !== req.session.user.account_id && req.session.user.account_type !== 'secretariat')
+
+
+                if (account_id !== user.account_id && user.account_type !== 'secretariat')
                     return utilsService.systemErrorHandler({ code: 401, type: 'unauthorized_for_this_action' }, res);
 
 
-                let travel_agent: TravelAgent;
-                if (account_id !== req.session.user.account_id)
-                    travel_agent = new TravelAgent(req.session.travel_agent);
-                else
-                    travel_agent = new TravelAgent(await travelAgentGetService.getTravelAgent(account_id));
-
-
+                const travel_agent: TravelAgent = await travelAgentGetService.getTravelAgent(account_id);
 
 
                 // delete travel agent
@@ -134,6 +131,41 @@ export class TravelAgentManagementRoutes {
                 }
 
             });
+
+
+
+
+
+        // app.route('/api/travel-agents/t/:account_id/delete')
+        //     .put(async (req: Request, res: Response) => {
+
+        //         const account_id = req.params.account_id.toString();
+        //         const user = req?.session?.user || req?.body?.user || null;
+
+
+
+        //         if (account_id !== user.account_id && user.account_type !== 'secretariat')
+        //             return utilsService.systemErrorHandler({ code: 401, type: 'unauthorized_for_this_action' }, res);
+
+
+        //         let travel_agent: TravelAgent;
+        //         if (account_id !== user.account_id)
+        //             travel_agent = new TravelAgent(travel_agent);
+        //         else
+        //             travel_agent = new TravelAgent(await travelAgentGetService.getTravelAgent(account_id));
+
+
+
+
+        //         // delete travel agent
+        //         try {
+        //             await travel_agent.delete_travel_agent();
+        //             return res.status(200).send({ code: 200, type: 'travel_agent_deleted' });
+        //         } catch (error) {
+        //             return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+        //         }
+
+        //     });
 
 
 

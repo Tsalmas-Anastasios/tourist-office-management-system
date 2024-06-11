@@ -9,6 +9,7 @@ if (user_logged_in)
 
 
 
+
 document.write(`
     <nav class="navbar navbar-expand-lg bg-body-tertiary" id="global-navbar">
         <div class="container-fluid">
@@ -20,12 +21,9 @@ document.write(`
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Αρχική</a>
+                        <a class="nav-link" aria-current="page" href="../../index.html">Αρχική</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Πακέτα</a>
-                    </li>
-
+                    
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Δημιουργία πακέτου</a>
                     </li> -->
@@ -33,10 +31,24 @@ document.write(`
 
                     ${user_logged_in ? session_data.user.account_type === 'secretariat' ? `
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Κρατήσεις</a>
+                            <a class="nav-link" href="#">Πακέτα</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./bookings.html">Κρατήσεις</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./travel-agents.html">Ταξιδιωτικοί πράκτορες</a>
+                        </li>
+                    ` : `` : ``}
+
+
+
+                    ${user_logged_in ? session_data.user.account_type === 'travel_agent' ? `
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Πακέτα</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./bookings.html">Κρατήσεις</a>
                         </li>
                     ` : `` : ``}
 

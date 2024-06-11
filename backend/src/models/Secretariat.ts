@@ -139,11 +139,11 @@ export class Secretariat {
 
 
         // check the password validation
-        if (new_travel_agent.password.length < 8 || new_travel_agent.password.length > 20)
-            return utilsService.systemErrorHandler({ code: 402, type: 'password_out_of_range', message: 'Password length out of range' }, res);
+        // if (new_travel_agent.password.length < 8 || new_travel_agent.password.length > 20)
+        //     return utilsService.systemErrorHandler({ code: 402, type: 'password_out_of_range', message: 'Password length out of range' }, res);
 
-        if (registrationService.checkPassword(new_travel_agent.password))
-            return utilsService.systemErrorHandler({ code: 402, type: 'password_not_strength', message: `Password doesn't meet the criteria` }, res);
+        // if (registrationService.checkPassword(new_travel_agent.password))
+        //     return utilsService.systemErrorHandler({ code: 402, type: 'password_not_strength', message: `Password doesn't meet the criteria` }, res);
 
 
 
@@ -167,7 +167,7 @@ export class Secretariat {
                     email = :email,
                     phone = :phone,
                     password = :password,
-                    account_type = 'customer';
+                    account_type = 'travel_agent';
             `, new_travel_agent);
 
 
@@ -185,17 +185,16 @@ export class Secretariat {
                     ${new_travel_agent?.date_of_birth ? `date_of_birth = '${new_travel_agent.date_of_birth}',` : ``}
                     ${new_travel_agent?.id_number ? `id_number = '${new_travel_agent.id_number}',` : ``}
                     ${new_travel_agent?.id_type ? `id_type = '${new_travel_agent.id_type}',` : ``}
-                    ${new_travel_agent?.place_of_residence.street ? `place_of_residence__street = '${new_travel_agent.place_of_residence.street}',` : ``}
-                    ${new_travel_agent?.place_of_residence.city ? `place_of_residence__city = '${new_travel_agent.place_of_residence.city}',` : ``}
-                    ${new_travel_agent?.place_of_residence.postal_code ? `place_of_residence__postal_code = '${new_travel_agent.place_of_residence.postal_code}',` : ``}
-                    ${new_travel_agent?.place_of_residence.state ? `place_of_residence__state = '${new_travel_agent.place_of_residence.state}',` : ``}
-                    ${new_travel_agent?.place_of_residence.country ? `place_of_residence__country = '${new_travel_agent.place_of_residence.country}',` : ``}
-                    ${new_travel_agent?.place_of_residence.longitude ? `place_of_residence__longitude = ${new_travel_agent.place_of_residence.longitude},` : ``}
-                    ${new_travel_agent?.place_of_residence.latitude ? `place_of_residence__latitude = ${new_travel_agent.place_of_residence.latitude},` : ``}
+                    ${new_travel_agent?.place_of_residence?.street ? `place_of_residence__street = '${new_travel_agent.place_of_residence.street}',` : ``}
+                    ${new_travel_agent?.place_of_residence?.city ? `place_of_residence__city = '${new_travel_agent.place_of_residence.city}',` : ``}
+                    ${new_travel_agent?.place_of_residence?.postal_code ? `place_of_residence__postal_code = '${new_travel_agent.place_of_residence.postal_code}',` : ``}
+                    ${new_travel_agent?.place_of_residence?.state ? `place_of_residence__state = '${new_travel_agent.place_of_residence.state}',` : ``}
+                    ${new_travel_agent?.place_of_residence?.country ? `place_of_residence__country = '${new_travel_agent.place_of_residence.country}',` : ``}
+                    ${new_travel_agent?.place_of_residence?.longitude ? `place_of_residence__longitude = ${new_travel_agent.place_of_residence.longitude},` : ``}
+                    ${new_travel_agent?.place_of_residence?.latitude ? `place_of_residence__latitude = ${new_travel_agent.place_of_residence.latitude},` : ``}
                     ${new_travel_agent?.start_date ? `start_date = '${new_travel_agent.start_date}',` : ``}
-                    still_working = ${new_travel_agent.still_working ? 1 : 0},
-                    ${new_travel_agent?.office_details.email ? `office_details__email = '${new_travel_agent.office_details.email}',` : ``}
-                    ${new_travel_agent?.office_details.phone ? `office_details__phone = '${new_travel_agent.office_details.phone}',` : ``}
+                    ${new_travel_agent?.office_details?.email ? `office_details__email = '${new_travel_agent.office_details.email}',` : ``}
+                    ${new_travel_agent?.office_details?.phone ? `office_details__phone = '${new_travel_agent.office_details.phone}',` : ``}
                     travel_agent_id = :travel_agent_id;
             `, {
                 ...new_travel_agent,
@@ -291,7 +290,7 @@ export class Secretariat {
                     email = :email,
                     phone = :phone,
                     password = :password,
-                    account_type = 'customer';
+                    account_type = 'secretariat';
             `, new_secretary);
 
 

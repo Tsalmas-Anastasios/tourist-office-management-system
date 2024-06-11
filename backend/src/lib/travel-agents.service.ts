@@ -9,6 +9,8 @@ class TravelAgentGetService {
 
     async getTravelAgent(account_id: string): Promise<TravelAgent> {
 
+        console.log(account_id);
+
         try {
 
             const result = await accountsDb.query(`SELECT * FROM travel_agents WHERE account_id = :account_id`, { account_id: account_id });

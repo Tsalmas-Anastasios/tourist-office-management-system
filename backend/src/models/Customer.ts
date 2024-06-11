@@ -79,7 +79,7 @@ export class Customer {
 
 
     // register user
-    public async register(req: Request, res: Response): Promise<any> {
+    public async register?(req: Request, res: Response): Promise<any> {
 
 
         const registration_data: Account = new Account(req.body.customer);
@@ -201,7 +201,7 @@ export class Customer {
 
 
     // logout customer
-    public log_out(req: Request, res: Response): Promise<any> {
+    public log_out?(req: Request, res: Response): Promise<any> {
 
         try {
 
@@ -221,7 +221,7 @@ export class Customer {
 
 
     // activate customer
-    public async activate_customer(data: { account_id: string }, req: Request, res: Response): Promise<void> {
+    public async activate_customer?(data: { account_id: string }, req: Request, res: Response): Promise<void> {
 
         try {
 
@@ -238,7 +238,7 @@ export class Customer {
 
 
     // change password for the user
-    public async change_password(data: { account_id: string, password: string }, req: Request, res: Response): Promise<any> {
+    public async change_password?(data: { account_id: string, password: string }, req: Request, res: Response): Promise<any> {
 
         // check the password validation
         if (data.password.length < 8 || data.password.length > 20)
@@ -268,7 +268,7 @@ export class Customer {
 
 
     // update customer
-    public async update_customer(): Promise<void> {
+    public async update_customer?(): Promise<void> {
 
         if (!this?.first_name || !this?.last_name || !this?.email || !this?.phone || !this?.username)
             return Promise.reject({ code: 400, type: 'bad_request', message: 'Credentials to register the user are missing' });
@@ -345,7 +345,7 @@ export class Customer {
 
 
     // delete customer
-    public async delete_customer(): Promise<void> {
+    public async delete_customer?(): Promise<void> {
 
         try {
             const delete_result = await accountsDb.query(`DELETE FROM accounts WHERE account = :account_id`, { account_id: this.account_id });
@@ -359,7 +359,7 @@ export class Customer {
 
 
     // book a plan
-    public async bookPlan(booking_details: PlanBooking, user: Account): Promise<any> {
+    public async bookPlan?(booking_details: PlanBooking, user: Account): Promise<any> {
 
         try {
 

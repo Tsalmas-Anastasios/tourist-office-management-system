@@ -35,13 +35,22 @@ const submitBookingForm = async () => {
     // save the plan
     try {
 
+        const booking = { booking: form_request_data };
+        if (JSON.parse(localStorage.getItem('session_data')).user.account_type === 'secretariat'
+            && form_request_data.customer_type === 'customer')
+            booking.secretary = JSON.parse(localStorage.getItem('session_data')).secretariat;
+        else
+            booking.user = JSON.parse(localStorage.getItem('session_data')).user;
+
+
+
         const response = await fetch('https://localhost:8080/api/bookings/new', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify({ booking: form_request_data, user: JSON.parse(localStorage.getItem('session_data')).user }),
+            body: JSON.stringify(booking),
         });
 
 
