@@ -31,7 +31,7 @@ document.write(`
 
                     ${user_logged_in ? session_data.user.account_type === 'secretariat' ? `
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Πακέτα</a>
+                            <a class="nav-link" href="./plans.html">Πακέτα</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./bookings.html">Κρατήσεις</a>
@@ -45,7 +45,7 @@ document.write(`
 
                     ${user_logged_in ? session_data.user.account_type === 'travel_agent' ? `
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Πακέτα</a>
+                            <a class="nav-link" href="./plans.html">Πακέτα</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./bookings.html">Κρατήσεις</a>

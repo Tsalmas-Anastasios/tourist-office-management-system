@@ -35,7 +35,7 @@ const create_plans_ui = (plans_list) => {
             <div class="plan-collapse-area mt-4" id="collapse_area+${plans_counter}">
     
                 <a class="p-3 d-block plan-collapse-button-open rounded" role="button" aria-expanded="false"
-                    aria-controls="plan_collapse_object_${plans_counter}">
+                    aria-controls="plan_collapse_object_${plans_counter}" onclick="getBookingsPerPlan('${plan.plan_id}')"data-bs-toggle="modal" data-bs-target="#bookPlanCustomerModalAreaFormArea">
     
     
                     <div class="d-flex justify-content-between">
@@ -125,6 +125,81 @@ const plans_collapse_string = getPlans()
 // get bookings per plan
 const getBookingsPerPlan = async (plan_id) => {
 
+    try {
+
+        document.getElementById('plan-bookings-list').innerHTML = 'Φόρτωση κρατήσεων για το πακέτο...';
+
+        const response = await fetch(`https://localhost:8080/api/bookings/pl/${plan_id}`);
+        const bookings_list = await response.json();
+
+        document.getElementById('plan-bookings-list').innerHTML = createBookingsListUI(bookings_list);
+
+    } catch (error) {
+        toastr.error('Κάτι πήγε στραβά! Προσπαθήστε ξανά αργότερα!');
+        return;
+    }
+
+}
+
+
+
+
+
+
+const createBookingsListUI = (bookings_list) => {
+
+
+    let ui_string = '';
+    for (const booking of bookings_list)
+        ui_string += `
+            <tr>
+                ${booking?.customer_id ? `
+                    <td>${booking.main_customer.first_name} ${booking.main_customer.last_name}</td>
+                    <td>${booking.main_customer.email}</td>
+                    <td>${booking.main_customer.phone}</td>
+                ` : ``}
+                ${booking?.travel_agent_id ? `
+                    <td>${booking.travel_agent.first_name} ${booking.travel_agent.last_name}</td>
+                    <td>${booking.travel_agent.email}</td>
+                    <td>${booking.travel_agent.phone}</td>
+                ` : ``}
+                ${booking?.secretary_id ? `
+                    <td>${booking.secretary.first_name} ${booking.secretary.last_name}</td>
+                    <td>${booking.secretary.email}</td>
+                    <td>${booking.secretary.phone}</td>
+                ` : ``}
+                <td class="text-center">ΝΑΙ</td>
+            </tr>
+        `;
+
+
+
+
+    ui_string = `
+        <table class="table table-striped">
+        
+            <thead>
+                <tr>
+                    <th class="text-center">Ονοματεπώνυμο</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Τηλέφωνο</th>
+                    <th class="text-center">Πληρώθηκε</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                ${ui_string}
+            </tbody>
+
+        </table>
+    `;
+
+
+
+
+    return ui_string;
 
 
 }
+
+

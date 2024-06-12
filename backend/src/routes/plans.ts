@@ -287,21 +287,23 @@ export class PlansRoutes {
 
 
             })
-            .delete(utilsService.checkAuth, async (req: Request, res: Response) => {
+            .delete(async (req: Request, res: Response) => {
 
                 const plan_id = req.params.plan_id.toString();
 
+                const user = req?.session?.user || req?.body?.user || null;
 
 
-                if (req.session.user.account_type === 'secretariat') {
 
-                    const secretary = new Secretariat(req.session.secretary);
-                    await secretary.deleteExistingPlan(plan_id, res);
+                if (user.account_type === 'secretariat') {
 
-                } else if (req.session.user.account_type === 'travel_agent') {
+                    const secretary = new Secretariat();
+                    return secretary.deleteExistingPlan(plan_id, res);
 
-                    const travel_agent = new TravelAgent(req.session.travel_agent);
-                    await travel_agent.deleteExistingPlan(plan_id, res);
+                } else if (user.account_type === 'travel_agent') {
+
+                    const travel_agent = new TravelAgent();
+                    return travel_agent.deleteExistingPlan(plan_id, res);
 
                 }
 

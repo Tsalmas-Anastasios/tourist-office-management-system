@@ -51,6 +51,44 @@ export class AccommodationRoutes {
 
 
 
+
+        app.route('/api/accommodations/specific-list/:place_id')
+            .get(async (req: Request, res: Response) => {
+
+                const place_id = req.params.place_id.toString();
+                const accommodations_list: Accommodation[] = [];
+
+
+                try {
+
+                    const result = await accountsDb.query(`SELECT * FROM accommodations WHERE place_id = :place_id`, { place_id: place_id });
+
+                    for (const row of result.rows)
+                        accommodations_list.push(new Accommodation({
+                            location_details: {
+                                street: row['location_details__street'],
+                                city: row['location_details__city'],
+                                postal_code: row['location_details__postal_code'],
+                                state: row['location_details__state'],
+                                country: row['location_details__country'],
+                                longitude: row['location_details__longitude'],
+                                latitude: row['location_details__latitude']
+                            },
+                            ...row
+                        }));
+
+
+                    return res.status(200).send(accommodations_list);
+
+                } catch (error) {
+                    return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
+                }
+
+            });
+
+
+
+
         app.route('/api/accommodations/new')
             .post(utilsService.checkAuthSecretary, async (req: Request, res: Response) => {
 

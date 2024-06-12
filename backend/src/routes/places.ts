@@ -43,6 +43,7 @@ export class PlacesRoutes {
 
 
 
+
         app.route('/api/places/new')
             .post(utilsService.checkAuthSecretary, async (req: Request, res: Response) => {
 
