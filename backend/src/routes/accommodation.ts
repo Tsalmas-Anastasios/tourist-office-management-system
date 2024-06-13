@@ -90,12 +90,11 @@ export class AccommodationRoutes {
 
 
         app.route('/api/accommodations/new')
-            .post(utilsService.checkAuthSecretary, async (req: Request, res: Response) => {
+            .post(async (req: Request, res: Response) => {
 
-                const new_accommodation = new Accommodation(req.body);
+                const new_accommodation = new Accommodation(req.body.accommodation);
 
-                const secretary = new Secretariat(req.session.secretary);
-
+                const secretary = new Secretariat(req?.session?.secretary || req?.body?.secretary || null);
 
 
                 try {

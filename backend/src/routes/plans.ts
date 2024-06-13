@@ -127,19 +127,21 @@ export class PlansRoutes {
 
         // add a new plan
         app.route('/api/plans/new')
-            .post(utilsService.checkAuth, async (req: Request, res: Response) => {
+            .post(async (req: Request, res: Response) => {
 
-                const new_plan = new TravelPlan(req.body);
+                const new_plan = new TravelPlan(req.body.plan);
+                const user = req?.session?.user || req?.body?.user || null;
 
 
-                if (req.session.user.account_type === 'secretariat') {
-
-                    const secretary = new Secretariat(req.session.secretary);
+                if (user.user.account_type === 'secretariat') {
+                    const sec_plain = req?.session?.user?.account_id ? req.session.secretary : req?.body?.user?.account_id ? req.body.secretariat_data : null;
+                    const secretary = new Secretariat(sec_plain);
                     return secretary.createNewPLan(new_plan, res);
 
-                } else if (req.session.user.account_type === 'travel_agent') {
+                } else if (user.user.account_type === 'travel_agent') {
 
-                    const travel_agent = new TravelAgent(req.session.travel_agent);
+                    const travel_agent_plain = req?.session?.user?.account_id ? req.session.travel_agent : req?.body?.user?.account_id ? req.body.travel_agent : null;
+                    const travel_agent = new TravelAgent(travel_agent_plain);
                     return travel_agent.createNewPLan(new_plan, res);
 
                 }

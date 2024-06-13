@@ -45,11 +45,11 @@ export class PlacesRoutes {
 
 
         app.route('/api/places/new')
-            .post(utilsService.checkAuthSecretary, async (req: Request, res: Response) => {
+            .post(async (req: Request, res: Response) => {
 
-                const new_place = new Place(req.body);
+                const new_place = new Place(req.body.place);
 
-                const secretary = new Secretariat(req.session.secretary);
+                const secretary = new Secretariat(req?.session?.secretary || req?.body?.secretary || null);
 
 
 

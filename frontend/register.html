@@ -34,8 +34,8 @@
 <body>
 
     <script src="./code/login/redirect-logged-in.js"></script> <!-- redirect if the user already logged in -->
-    <script src="./code/login/validate-from.js"></script> <!-- validate form funcs -->
-    <script src="./code/login/submit-form.js"></script> <!-- submit form funcs -->
+    <script src="./code/register/validate-form.js"></script>
+    <script src="./code/register/submit-form.js"></script>
 
 
 
@@ -46,17 +46,20 @@
 
             <!-- Login Form -->
             <form class="mt-4" method="post" id="login_form" name="login_form">
-                <input type="text" id="username" class="fadeIn second" name="username" placeholder="Όνομα χρήστη" required onchange="validateForm();"
-                    onkeyup="validateForm();" />
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Κωδικός πρόσβασης" required onchange="validateForm();"
-                    onkeyup="validateForm();" />
-                <input type="button" class="fadeIn fourth" value="Σύνδεση" id="submit-btn" disabled onclick="submitLoginForm();" />
+                <input type="text" id="first_name" class="fadeIn second" name="first_name" placeholder="Όνομα" required />
+                <input type="text" id="last_name" class="fadeIn second" name="last_name" placeholder="Επίθετο" required />
+                <input type="email" id="email" class="fadeIn second" name="email" placeholder="Email" required />
+                <input type="tel" id="phone" class="fadeIn second" name="phone" placeholder="Τηλέφωνο" required />
+                <input type="text" id="username" class="fadeIn second" name="username" placeholder="Όνομα χρήστη" required />
+                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Κωδικός πρόσβασης" required />
+                <input type="password" id="confirm_password" class="fadeIn third" name="confirm_password" placeholder="Επιβεβαίωση κωδικού πρόσβασης"
+                    required />
+                <input type="button" class="fadeIn fourth" value="Δημιουργία λογαριασμού" id="submit-btn" onclick="submitRegisterCustomerForm();" />
             </form>
 
             <!-- Remind Passowrd -->
             <div id="formFooter">
-                <a class="underlineHover" href="./register.html">Δημιουργία λογαριασμού</a>
-                <!-- <a class="underlineHover" href="#">Ξέχασα τον κωδικό</a> -->
+                <a class="underlineHover" href="./login.html">Σύνδεση</a>
             </div>
 
         </div>

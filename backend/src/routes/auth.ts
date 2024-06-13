@@ -13,6 +13,7 @@ import { registrationService, generateAccountData } from '../lib/registration.se
 import { stringValidator } from '../lib/stringValidator.service';
 import { mailServer } from '../lib/connectors/mailServer';
 import { RequestPasswordChangeEmailTemplate } from '../lib/email-templates/RequestPasswordChangeEmailTemplate';
+require('dotenv').config();
 
 
 export class AuthRoutes {
@@ -202,7 +203,8 @@ export class AuthRoutes {
                         await customer.activate_customer({ account_id: token_data.account_id }, req, res);
 
 
-                        return res.status(200).send({ code: 200, type: 'user_activated', message: 'user_activated_successfully' });
+                        return res.status(200).redirect(process.env.FRONTEND_LOGIN_PAGE);
+                        // return res.status(200).send({ code: 200, type: 'user_activated', message: 'user_activated_successfully' });
 
                     } catch (error) {
                         return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
@@ -216,7 +218,8 @@ export class AuthRoutes {
                         await travel_agent.activate_travel_agent({ account_id: token_data.account_id }, req, res);
 
 
-                        return res.status(200).send({ code: 200, type: 'user_activated', message: 'user_activated_successfully' });
+                        return res.status(200).redirect(process.env.FRONTEND_LOGIN_PAGE);
+                        // return res.status(200).send({ code: 200, type: 'user_activated', message: 'user_activated_successfully' });
 
                     } catch (error) {
                         return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);
@@ -230,7 +233,8 @@ export class AuthRoutes {
                         await secretariat.activate_secretary({ account_id: token_data.account_id }, req, res);
 
 
-                        return res.status(200).send({ code: 200, type: 'user_activated', message: 'user_activated_successfully' });
+                        return res.status(200).redirect(process.env.FRONTEND_LOGIN_PAGE);
+                        // return res.status(200).send({ code: 200, type: 'user_activated', message: 'user_activated_successfully' });
 
                     } catch (error) {
                         return utilsService.systemErrorHandler({ code: 500, type: 'internal_server_error', message: error?.message || null }, res);

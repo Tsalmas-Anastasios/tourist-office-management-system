@@ -119,6 +119,8 @@ input[type=reset]:active {
 }
 
 input[type=text],
+input[type=email],
+input[type=tel],
 input[type=password] {
     background-color: #f6f6f6;
     border: none;
@@ -141,6 +143,8 @@ input[type=password] {
 }
 
 input[type=text]:focus,
+input[type=email]:focus,
+input[type=tel]:focus,
 input[type=password]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;

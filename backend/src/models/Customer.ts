@@ -113,11 +113,11 @@ export class Customer {
 
 
         // check the password validation
-        if (registration_data.password.length < 8 || registration_data.password.length > 20)
-            return utilsService.systemErrorHandler({ code: 402, type: 'password_out_of_range', message: 'Password length out of range' }, res);
+        // if (registration_data.password.length < 8 || registration_data.password.length > 20)
+        //     return utilsService.systemErrorHandler({ code: 402, type: 'password_out_of_range', message: 'Password length out of range' }, res);
 
-        if (registrationService.checkPassword(registration_data.password))
-            return utilsService.systemErrorHandler({ code: 402, type: 'password_not_strength', message: `Password doesn't meet the criteria` }, res);
+        // if (registrationService.checkPassword(registration_data.password))
+        //     return utilsService.systemErrorHandler({ code: 402, type: 'password_not_strength', message: `Password doesn't meet the criteria` }, res);
 
 
 

@@ -686,14 +686,15 @@ export class Secretariat {
                     accommodations
                 SET
                     accommodation_id = :accommodation_id,
+                    place_id = :place_id,
                     title = :title,
                     title_internal = :title_internal,
                     type = :type,
-                    ${new_accommodation?.location_details?.street ? `location_details__street = ''${new_accommodation.location_details.street}'',` : ``}
-                    ${new_accommodation?.location_details?.city ? `location_details__city = ''${new_accommodation.location_details.city}'',` : ``}
-                    ${new_accommodation?.location_details?.postal_code ? `location_details__postal_code = ''${new_accommodation.location_details.postal_code}'',` : ``}
-                    ${new_accommodation?.location_details?.state ? `location_details__state = ''${new_accommodation.location_details.state}'',` : ``}
-                    ${new_accommodation?.location_details?.country ? `location_details__country = ''${new_accommodation.location_details.country}'',` : ``}
+                    ${new_accommodation?.location_details?.street ? `location_details__street = '${new_accommodation.location_details.street}',` : ``}
+                    ${new_accommodation?.location_details?.city ? `location_details__city = '${new_accommodation.location_details.city}',` : ``}
+                    ${new_accommodation?.location_details?.postal_code ? `location_details__postal_code = '${new_accommodation.location_details.postal_code}',` : ``}
+                    ${new_accommodation?.location_details?.state ? `location_details__state = '${new_accommodation.location_details.state}',` : ``}
+                    ${new_accommodation?.location_details?.country ? `location_details__country = '${new_accommodation.location_details.country}',` : ``}
                     ${new_accommodation?.location_details?.longitude ? `location_details__longitude = '${new_accommodation.location_details.longitude}',` : ``}
                     ${new_accommodation?.location_details?.latitude ? `location_details__latitude = '${new_accommodation.location_details.latitude}',` : ``}
                     accept_adults = ${new_accommodation?.accept_adults ? 1 : 0},

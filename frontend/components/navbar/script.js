@@ -66,6 +66,9 @@ document.write(`
                     <a href="./login.html" class="btn btn-primary" id="loginLinkButton">
                         Σύνδεση
                     </a>
+                    <a href="./register.html" class="btn btn-primary ms-2" id="registerLinkButton">
+                        Δημιουργία λογαριασμού
+                    </a>
                 `}
             </div>
         </div>

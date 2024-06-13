@@ -11,8 +11,7 @@ import { accountsDb } from './connectors/db/accounts-db';
 export async function createNewPlan(new_plan: TravelPlan): Promise<any> {
 
     if (!new_plan?.title || !new_plan?.title_internal || !new_plan?.price || !new_plan?.category
-        || !new_plan?.small_description || !new_plan?.description || !new_plan?.date_range
-        || !new_plan?.start_date || !new_plan?.end_date || !new_plan?.starting_type || !new_plan?.means_of_transport_arrival
+        || !new_plan?.small_description || !new_plan?.description || !new_plan?.means_of_transport_arrival
         || !new_plan?.means_of_transport_return || !new_plan?.place_id || !new_plan?.accommodation_id)
         return Promise.resolve({ code: 400, type: 'bad_request', message: 'Data to create the plan are missing' });
 
@@ -38,16 +37,16 @@ export async function createNewPlan(new_plan: TravelPlan): Promise<any> {
                 ${new_plan?.infants ? `infants = ${new_plan.infants},` : ``}
                 small_description = :small_description,
                 description = :description,
-                date_range = :date_range,
-                start_date = :start_date,
-                end_date = :end_date,
+                ${new_plan?.date_range ? `date_range = '${new_plan.date_range}',` : ``}
+                ${new_plan?.start_date ? `start_date = '${new_plan.start_date}',` : ``}
+                ${new_plan?.end_date ? `end_date = '${new_plan.end_date}',` : ``}
                 ${new_plan?.min_days ? `min_days = ${new_plan.min_days},` : ``}
                 ${new_plan?.max_days ? `max_days = ${new_plan.max_days},` : ``}
                 ${new_plan?.cancelation_policy ? `cancelation_policy = '${new_plan.cancelation_policy}',` : ``}
                 available = ${new_plan?.available ? 1 : 0},
                 ${new_plan?.available_from_date ? `available_from_date = '${new_plan.available_from_date}',` : ``}
                 ${new_plan?.available_until_date ? `available_until_date = '${new_plan.available_until_date}',` : ``}
-                starting_type = :starting_type,
+                ${new_plan?.starting_type ? `starting_type = '${new_plan.starting_type}',` : ``}
                 adults_only = ${new_plan?.adults_only ? 1 : 0},
                 family_friendly = ${new_plan?.family_friendly ? 1 : 0},
                 ${new_plan?.area_description ? `area_description = '${new_plan.area_description}',` : ``}

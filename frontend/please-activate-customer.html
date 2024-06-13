@@ -34,30 +34,18 @@
 <body>
 
     <script src="./code/login/redirect-logged-in.js"></script> <!-- redirect if the user already logged in -->
-    <script src="./code/login/validate-from.js"></script> <!-- validate form funcs -->
-    <script src="./code/login/submit-form.js"></script> <!-- submit form funcs -->
-
-
 
 
     <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <!-- Tabs Titles -->
+        <div id="formContent" class="p-4">
 
-            <!-- Login Form -->
-            <form class="mt-4" method="post" id="login_form" name="login_form">
-                <input type="text" id="username" class="fadeIn second" name="username" placeholder="Όνομα χρήστη" required onchange="validateForm();"
-                    onkeyup="validateForm();" />
-                <input type="password" id="password" class="fadeIn third" name="password" placeholder="Κωδικός πρόσβασης" required onchange="validateForm();"
-                    onkeyup="validateForm();" />
-                <input type="button" class="fadeIn fourth" value="Σύνδεση" id="submit-btn" disabled onclick="submitLoginForm();" />
-            </form>
+            <h3>Παρακαλούμε ενεργοποιείστε τον λογαριασμό σας από το email που σας στάλθηκε!</h3>
 
-            <!-- Remind Passowrd -->
-            <div id="formFooter">
-                <a class="underlineHover" href="./register.html">Δημιουργία λογαριασμού</a>
-                <!-- <a class="underlineHover" href="#">Ξέχασα τον κωδικό</a> -->
-            </div>
+
+            <a href="./index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i>
+                Αρχική
+            </a>
 
         </div>
     </div>
