@@ -616,7 +616,7 @@ const parsePlanData = async (plan_id) => {
     else if (customer_data.type.value === 'travel_agent')
         customer_data.id.value = response_logged_in.travel_agent.travel_agent_id;
     else
-        customer_data.id.value = response_logged_in.customer.customer_id;
+        customer_data.id.value = response_logged_in.customer_data.customer_id;
 
 
 
