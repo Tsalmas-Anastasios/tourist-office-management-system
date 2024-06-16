@@ -1,5 +1,3 @@
-# bizyhive-backend
-
 - Node version: 18
 
 before you run the BackEnd locally, run these commands:
