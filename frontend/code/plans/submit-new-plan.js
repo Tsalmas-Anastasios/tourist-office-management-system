@@ -22,8 +22,8 @@ const submitFormNewPlan = async () => {
         min_days: document.getElementById('minDays').value,
         max_days: document.getElementById('maxDays').value,
         cancelation_policy: document.getElementById('cancellationPolicy').value,
-        adults_only: document.getElementById('adultsOnly').value ? true : false,
-        family_friendly: document.getElementById('familyFriendly').value ? true : false,
+        adults_only: document.getElementsByName('planTypeBooking').value === 'adults_only' ? true : false,
+        family_friendly: document.getElementsByName('planTypeBooking').value === 'family_friendly' ? true : false,
 
         area_description: document.getElementById('areaDescription').value,
         other_important_info: document.getElementById('otherImportantInfo').value,
@@ -41,7 +41,7 @@ const submitFormNewPlan = async () => {
             type: document.getElementById('meansOfTransportReturn_type').value,
             company_name: document.getElementById('meansOfTransportReturn_companyName').value,
             start_time: document.getElementById('meansOfTransportReturn_startTime').value,
-            Return_time: document.getElementById('meansOfTransportReturn_arrivalTime').value,
+            arrival_time: document.getElementById('meansOfTransportReturn_arrivalTime').value,
             number: document.getElementById('meansOfTransportReturn_number').value,
         },
 
@@ -52,7 +52,7 @@ const submitFormNewPlan = async () => {
 
 
 
-    form_data.persons = form_data.adults + form_data.children + form_data.infants;
+    form_data.persons = Number(form_data.adults) + Number(form_data.children) + Number(form_data.infants);
 
 
 
