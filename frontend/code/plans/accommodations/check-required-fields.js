@@ -39,10 +39,10 @@ const checkRequiredFieldsAccommodationForm_check = () => {
             throw new Error();
 
 
-        document.getElementById('newAccommodationCreationFormSubmit').disabled = false;
+        document.getElementById('newplanCreationFormSubmitButtonSubmit').disabled = false;
 
     } catch (error) {
-        document.getElementById('newAccommodationCreationFormSubmit').disabled = true;
+        document.getElementById('newplanCreationFormSubmitButtonSubmit').disabled = true;
         toastr.warning('Παρακαλώ συμπληρώστε πρώτα όλα τα απαραίτητα πεδία (*)');
         return;
     }

@@ -351,4 +351,20 @@ export class TravelAgent {
     }
 
 
+
+
+    // delete booking with reference to the customer
+    public async deleteBookingSelf(data: { account_id: string, booking_id: string }): Promise<void> {
+
+        try {
+
+            const result = await accountsDb.query(`DELETE FROM bookings WHERE booking_id = :booking_id`, data);
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+
+    }
+
+
 }

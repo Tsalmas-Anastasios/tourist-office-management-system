@@ -261,22 +261,25 @@ export class PlansRoutes {
                 }
 
             })
-            .put(utilsService.checkAuth, async (req: Request, res: Response) => {
+            .put(async (req: Request, res: Response) => {
 
-                const existing_plan = new TravelPlan(req.body);
+                const existing_plan = new TravelPlan(req.body.plan);
                 existing_plan.plan_id = req.params.plan_id.toString();
 
+                const user = req?.session?.user || req?.body?.user || null;
 
 
-                if (req.session.user.account_type === 'secretariat') {
+                if (user.user.account_type === 'secretariat') {
 
-                    const secretary = new Secretariat(req.session.secretary);
-                    await secretary.updateExistingPlan(existing_plan, res);
+                    const sec_plain = req?.session?.user?.account_id ? req.session.secretary : req?.body?.user?.account_id ? req.body.secretariat_data : null;
+                    const secretary = new Secretariat(sec_plain);
+                    return secretary.updateExistingPlan(existing_plan, res);
 
-                } else if (req.session.user.account_type === 'travel_agent') {
+                } else if (user.user.account_type === 'travel_agent') {
 
-                    const travel_agent = new TravelAgent(req.session.travel_agent);
-                    await travel_agent.updateExistingPlan(existing_plan, res);
+                    const travel_agent_plain = req?.session?.user?.account_id ? req.session.travel_agent : req?.body?.user?.account_id ? req.body.travel_agent : null;
+                    const travel_agent = new TravelAgent(travel_agent_plain);
+                    return travel_agent.updateExistingPlan(existing_plan, res);
 
                 }
 

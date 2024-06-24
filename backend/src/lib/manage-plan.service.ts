@@ -94,8 +94,7 @@ export async function createNewPlan(new_plan: TravelPlan): Promise<any> {
 export async function updateExistingPlan(existing_plan: TravelPlan): Promise<any> {
 
     if (!existing_plan?.title || !existing_plan?.title_internal || !existing_plan?.price || !existing_plan?.category
-        || !existing_plan?.small_description || !existing_plan?.description || !existing_plan?.date_range
-        || !existing_plan?.start_date || !existing_plan?.end_date || !existing_plan?.starting_type || !existing_plan?.means_of_transport_arrival
+        || !existing_plan?.small_description || !existing_plan?.description || !existing_plan?.means_of_transport_arrival
         || !existing_plan?.means_of_transport_return || !existing_plan?.place_id || !existing_plan?.accommodation_id)
         return Promise.resolve({ code: 400, type: 'bad_request', message: 'Data to create the plan are missing' });
 
@@ -119,9 +118,9 @@ export async function updateExistingPlan(existing_plan: TravelPlan): Promise<any
                 infants = ${existing_plan?.infants ? `${existing_plan.infants}` : `NULL`},
                 small_description = :small_description,
                 description = :description,
-                date_range = :date_range,
-                start_date = :start_date,
-                end_date = :end_date,
+                date_range = ${existing_plan?.date_range ? `'${existing_plan.date_range}'` : `NULL`},
+                start_date = ${existing_plan?.start_date ? `'${existing_plan.start_date}'` : `NULL`},
+                end_date = ${existing_plan?.end_date ? `'${existing_plan.end_date}'` : `NULL`},
                 min_days = ${existing_plan?.min_days ? `${existing_plan.min_days}` : `NULL`},
                 max_days = ${existing_plan?.max_days ? `${existing_plan.max_days}` : `NULL`},
                 cancelation_policy = ${existing_plan?.cancelation_policy ? `'${existing_plan.cancelation_policy}'` : `NULL`},

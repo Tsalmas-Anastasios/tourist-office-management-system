@@ -48,10 +48,12 @@ const checkRequiredFieldsAccommodationForm = () => {
             throw new Error();
 
 
-        document.getElementById('accommodationCreationForm').disabled = false;
+        document.getElementById('planCreationFormSubmitButton').disabled = false;
+        document.getElementById('planUpdateFormSubmitButton').disabled = false;
 
     } catch (error) {
-        document.getElementById('accommodationCreationForm').disabled = true;
+        document.getElementById('planCreationFormSubmitButton').disabled = true;
+        document.getElementById('planUpdateFormSubmitButton').disabled = true;
         toastr.warning('Παρακαλώ συμπληρώστε πρώτα όλα τα απαραίτητα πεδία (*)');
         return;
     }

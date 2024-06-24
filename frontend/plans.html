@@ -73,7 +73,8 @@
         <div class="row mt-4">
             <div class="col-12 text-end">
 
-                <button type="button" class="btn btn-success me-2" id="addNewPlan" data-bs-toggle="modal" data-bs-target="#createNewPlanModalForm">
+                <button type="button" class="btn btn-success me-2" id="addNewPlan" data-bs-toggle="modal" data-bs-target="#createNewPlanModalForm"
+                    onclick="preparePlanCreation();">
                     Δημιουργία νέου πακέτου
                 </button>
 
@@ -109,6 +110,7 @@
     <!-- create new plan -->
     <script src="./code/plans/check-required-fields-submit-new-plan.js"></script>
     <script src="./code/plans/submit-new-plan.js"></script>
+    <script src="./code/plans/edit-existing-plan.js"></script>
     <div class="modal fade" id="createNewPlanModalForm" tabindex="-1" aria-labelledby="createNewPlanModalFormLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -120,6 +122,8 @@
 
                 <div class="modal-body">
                     <form name="createNewPlanModalForm_formArea" method="post">
+
+                        <input type="hidden" name="plan_id" id="plan_id" value="" />
 
 
                         <div class="row">
@@ -607,8 +611,10 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="createNewPlaceModalForm_formArea.reset()">Κλείσιμο</button>
-                    <button type="button" class="btn btn-primary" id="accommodationCreationForm" data-bs-dismiss="modal" disabled
+                    <button type="button" class="btn btn-primary" id="planCreationFormSubmitButton" data-bs-dismiss="modal" disabled
                         onclick="submitFormNewPlan();">Δημιουργία</button>
+                    <button type="button" class="btn btn-primary" id="planUpdateFormSubmitButton" data-bs-dismiss="modal" disabled
+                        onclick="updateExistingPlan();">Ενημέρωση</button>
                 </div>
 
             </div>
@@ -930,7 +936,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                         onclick="createNewAccommodationModalForm_formArea.reset()">Κλείσιμο</button>
-                    <button type="button" class="btn btn-primary" id="newAccommodationCreationFormSubmit" data-bs-dismiss="modal" disabled
+                    <button type="button" class="btn btn-primary" id="newplanCreationFormSubmitButtonSubmit" data-bs-dismiss="modal" disabled
                         onclick="submitNewAccommodationForm();">Δημιουργία</button>
                 </div>
 

@@ -2,7 +2,7 @@ const deletePlan = async (plan_id) => {
 
     try {
 
-        const response = await fetch(`https://api.st.tsalmas.com/api/plans/p/${plan_id}`, {
+        const response = await fetch(`https://localhost:8080/api/plans/p/${plan_id}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",

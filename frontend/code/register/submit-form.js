@@ -24,7 +24,7 @@ const submitRegisterCustomerForm = async () => {
 
     try {
 
-        const response = await fetch('https://api.st.tsalmas.com/api/auth/register-customer', {
+        const response = await fetch('https://localhost:8080/api/auth/register-customer', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

@@ -8,7 +8,7 @@ const getAccommodations = async () => {
 
     try {
 
-        const response = await fetch('https://api.st.tsalmas.com/api/accommodations');
+        const response = await fetch('https://localhost:8080/api/accommodations');
         const accommodations_list = await response.json();
 
         return accommodations_list;

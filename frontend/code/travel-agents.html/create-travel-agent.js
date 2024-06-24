@@ -38,7 +38,7 @@ const createTravelAgent = async () => {
 
     try {
 
-        const response = await fetch('https://api.st.tsalmas.com/api/travel-agents/new', {
+        const response = await fetch('https://localhost:8080/api/travel-agents/new', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

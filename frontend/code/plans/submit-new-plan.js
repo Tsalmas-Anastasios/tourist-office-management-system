@@ -25,6 +25,7 @@ const submitFormNewPlan = async () => {
         adults_only: document.getElementsByName('planTypeBooking').value === 'adults_only' ? true : false,
         family_friendly: document.getElementsByName('planTypeBooking').value === 'family_friendly' ? true : false,
 
+
         area_description: document.getElementById('areaDescription').value,
         other_important_info: document.getElementById('otherImportantInfo').value,
 
@@ -60,9 +61,7 @@ const submitFormNewPlan = async () => {
     // save new plan here
     try {
 
-        console.log(JSON.parse(localStorage.getItem('session_data')));
-
-        const response = await fetch('https://api.st.tsalmas.com/api/plans/new', {
+        const response = await fetch('https://localhost:8080/api/plans/new', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

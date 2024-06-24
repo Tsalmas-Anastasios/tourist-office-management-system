@@ -5,7 +5,7 @@
 const getPlans = async () => {
 
     try {
-        const response = await fetch('https://api.st.tsalmas.com/api/plans');
+        const response = await fetch('https://localhost:8080/api/plans');
         const response_data = await response.json();
         return response_data;
     } catch (error) {
@@ -129,7 +129,7 @@ const getBookingsPerPlan = async (plan_id) => {
 
         document.getElementById('plan-bookings-list').innerHTML = 'Φόρτωση κρατήσεων για το πακέτο...';
 
-        const response = await fetch(`https://api.st.tsalmas.com/api/bookings/pl/${plan_id}`);
+        const response = await fetch(`https://localhost:8080/api/bookings/pl/${plan_id}`);
         const bookings_list = await response.json();
 
         document.getElementById('plan-bookings-list').innerHTML = createBookingsListUI(bookings_list);
@@ -174,25 +174,27 @@ const createBookingsListUI = (bookings_list) => {
 
 
 
+    if (ui_string !== '')
+        ui_string = `
+            <table class="table table-striped">
+            
+                <thead>
+                    <tr>
+                        <th class="text-center">Ονοματεπώνυμο</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Τηλέφωνο</th>
+                        <th class="text-center">Πληρώθηκε</th>
+                    </tr>
+                </thead>
 
-    ui_string = `
-        <table class="table table-striped">
-        
-            <thead>
-                <tr>
-                    <th class="text-center">Ονοματεπώνυμο</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Τηλέφωνο</th>
-                    <th class="text-center">Πληρώθηκε</th>
-                </tr>
-            </thead>
+                <tbody>
+                    ${ui_string}
+                </tbody>
 
-            <tbody>
-                ${ui_string}
-            </tbody>
-
-        </table>
-    `;
+            </table>
+        `;
+    else
+        ui_string = 'Δεν υπάρχουν κρατήσεις για το συγκεκριμένο πακέτο';
 
 
 

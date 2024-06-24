@@ -44,7 +44,7 @@ const submitBookingForm = async () => {
 
 
 
-        const response = await fetch('https://api.st.tsalmas.com/api/bookings/new', {
+        const response = await fetch('https://localhost:8080/api/bookings/new', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

@@ -5,7 +5,7 @@
 const getPlans = async () => {
 
     try {
-        const response = await fetch('https://api.st.tsalmas.com/api/plans');
+        const response = await fetch('https://localhost:8080/api/plans');
         const response_data = await response.json();
         return response_data;
     } catch (error) {
@@ -600,7 +600,7 @@ const parsePlanData = async (plan_id) => {
 
     let plan;
     try {
-        const response = await fetch(`https://api.st.tsalmas.com/api/plans/p/${plan_id}`);
+        const response = await fetch(`https://localhost:8080/api/plans/p/${plan_id}`);
         plan = await response.json();
     } catch (error) {
         return;
@@ -626,7 +626,7 @@ const parsePlanData = async (plan_id) => {
         let customers_list;
         try {
 
-            const response = await fetch('https://api.st.tsalmas.com/api/customers');
+            const response = await fetch('https://localhost:8080/api/customers');
             customers_list = await response.json();
 
         } catch (error) {
