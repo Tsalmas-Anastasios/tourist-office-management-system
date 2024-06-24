@@ -7,7 +7,7 @@ const editPlanDetails = async (plan_id) => {
 
     try {
 
-        const response = await fetch(`https://localhost:8080/api/plans/p/${plan_id}`);
+        const response = await fetch(`https://api.st.tsalmas.com/api/plans/p/${plan_id}`);
         const plan_details = await response.json();
 
 
@@ -134,7 +134,7 @@ const updateExistingPlan = async () => {
     // update existing plan
     try {
 
-        const response = await fetch(`https://localhost:8080/api/plans/p/${plan_details.plan_id}`, {
+        const response = await fetch(`https://api.st.tsalmas.com/api/plans/p/${plan_details.plan_id}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",

@@ -16,7 +16,7 @@ const submitFormNewPlace = async () => {
 
     try {
 
-        const response = await fetch('https://localhost:8080/api/places/new', {
+        const response = await fetch('https://api.st.tsalmas.com/api/places/new', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

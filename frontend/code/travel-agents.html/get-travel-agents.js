@@ -3,7 +3,7 @@ const getTravelAgents = async () => {
 
     try {
 
-        const response = await fetch('https://localhost:8080/api/travel-agents');
+        const response = await fetch('https://api.st.tsalmas.com/api/travel-agents');
         const travel_agents_list = await response.json();
         console.log(travel_agents_list);
 
@@ -76,7 +76,7 @@ const deleteTravelAgent = async (travel_agent_id) => {
 
     try {
 
-        const response = await fetch(`https://localhost:8080/api/travel-agents/t/${travel_agent_id}`, {
+        const response = await fetch(`https://api.st.tsalmas.com/api/travel-agents/t/${travel_agent_id}`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json",

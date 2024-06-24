@@ -20,7 +20,7 @@ const deleteBookingCustomer = async (booking_id) => {
 
         try {
 
-            const response = await fetch(`https://localhost:8080/api/bookings/cs/${account_id}/${booking_id}`, {
+            const response = await fetch(`https://api.st.tsalmas.com/api/bookings/cs/${account_id}/${booking_id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",

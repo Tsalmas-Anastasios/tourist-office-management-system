@@ -23,7 +23,7 @@ const submitLoginForm = async () => {
     // send the request to logged in to the server
     try {
 
-        const response = await fetch('https://localhost:8080/api/auth/login', {
+        const response = await fetch('https://api.st.tsalmas.com/api/auth/login', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

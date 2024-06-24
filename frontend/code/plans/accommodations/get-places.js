@@ -7,7 +7,7 @@ const getPlacesList = async () => {
 
     try {
 
-        const response = await fetch('https://localhost:8080/api/places');
+        const response = await fetch('https://api.st.tsalmas.com/api/places');
         const places_list = await response.json();
 
 

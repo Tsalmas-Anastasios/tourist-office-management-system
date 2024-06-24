@@ -61,7 +61,7 @@ const submitFormNewPlan = async () => {
     // save new plan here
     try {
 
-        const response = await fetch('https://localhost:8080/api/plans/new', {
+        const response = await fetch('https://api.st.tsalmas.com/api/plans/new', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

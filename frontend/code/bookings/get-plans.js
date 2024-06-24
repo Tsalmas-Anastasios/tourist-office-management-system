@@ -5,7 +5,7 @@
 const getPlans = async () => {
 
     try {
-        const response = await fetch('https://localhost:8080/api/plans');
+        const response = await fetch('https://api.st.tsalmas.com/api/plans');
         const response_data = await response.json();
         return response_data;
     } catch (error) {
@@ -129,7 +129,7 @@ const getBookingsPerPlan = async (plan_id) => {
 
         document.getElementById('plan-bookings-list').innerHTML = 'Φόρτωση κρατήσεων για το πακέτο...';
 
-        const response = await fetch(`https://localhost:8080/api/bookings/pl/${plan_id}`);
+        const response = await fetch(`https://api.st.tsalmas.com/api/bookings/pl/${plan_id}`);
         const bookings_list = await response.json();
 
         document.getElementById('plan-bookings-list').innerHTML = createBookingsListUI(bookings_list);
