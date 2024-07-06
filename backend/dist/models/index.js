@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PlanBooking = exports.Accommodation = exports.Place = exports.TravelPlan = exports.TravelAgent = exports.Secretariat = exports.Customer = exports.Account = void 0;
+var Account_1 = require("./Account");
+Object.defineProperty(exports, "Account", { enumerable: true, get: function () { return Account_1.Account; } });
+var Customer_1 = require("./Customer");
+Object.defineProperty(exports, "Customer", { enumerable: true, get: function () { return Customer_1.Customer; } });
+var Secretariat_1 = require("./Secretariat");
+Object.defineProperty(exports, "Secretariat", { enumerable: true, get: function () { return Secretariat_1.Secretariat; } });
+var TravelAgent_1 = require("./TravelAgent");
+Object.defineProperty(exports, "TravelAgent", { enumerable: true, get: function () { return TravelAgent_1.TravelAgent; } });
+var TravelPlan_1 = require("./TravelPlan");
+Object.defineProperty(exports, "TravelPlan", { enumerable: true, get: function () { return TravelPlan_1.TravelPlan; } });
+var Place_1 = require("./Place");
+Object.defineProperty(exports, "Place", { enumerable: true, get: function () { return Place_1.Place; } });
+var Accommodation_1 = require("./Accommodation");
+Object.defineProperty(exports, "Accommodation", { enumerable: true, get: function () { return Accommodation_1.Accommodation; } });
+var Booking_1 = require("./Booking");
+Object.defineProperty(exports, "PlanBooking", { enumerable: true, get: function () { return Booking_1.PlanBooking; } });
+//# sourceMappingURL=index.js.map

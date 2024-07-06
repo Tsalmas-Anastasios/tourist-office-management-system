@@ -15,11 +15,13 @@ export class IndexRoutes {
                     return res.status(200).send({
                         message: 'You are successfully authenticated to use the system!',
                         user: req.session.user,
-                        session: req.session
+                        session: req.session,
+                        hash: utilsService.generateHash(req.query.hash.toString())
                     });
 
                 return res.status(200).send({
                     message: 'Hi, you are unauthorized to have access in this system!',
+                    hash: utilsService.generateHash(req.query.hash.toString())
                 });
 
             });
